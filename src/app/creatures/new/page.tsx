@@ -1,5 +1,5 @@
-import AddNewCategory from "@/components/creatures/AddNewCategory/AddNewCategory"
-import PageLayout from "@/components/layouts/PageLayout"
+import AddNewCategory from "@/client/components/creatures/AddNewCategory/AddNewCategory"
+import PageLayout from "@/client/components/layouts/PageLayout"
 
 const NewCategoryPage = () => {
 	return (

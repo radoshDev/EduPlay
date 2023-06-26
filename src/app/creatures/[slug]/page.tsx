@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation"
-import { prisma } from "@/config/prisma"
+import { prisma } from "@/server/prisma"
 import { PageProps } from "@/types"
-import Button from "@/components/ui/Button"
-import CreatureList from "@/components/creatures/CreatureList"
+import Button from "@/client/components/ui/Button"
+import CreaturesList from "@/client/components/creatures/CreatureList"
 
 const ResultImagesPage = async ({ params }: PageProps<"slug">) => {
 	const creaturesCategory = await prisma.creaturesCategories.findUnique({
@@ -17,7 +17,10 @@ const ResultImagesPage = async ({ params }: PageProps<"slug">) => {
 					До занять
 				</Button>
 				<h1 className="h1 my-6">{}</h1>
-				<CreatureList categoryId={creaturesCategory.id} categoryTitle={creaturesCategory.title} />
+				<CreaturesList
+					categoryId={creaturesCategory.id}
+					categoryTitle={creaturesCategory.title}
+				/>
 			</div>
 		</div>
 	)

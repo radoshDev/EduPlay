@@ -1,4 +1,4 @@
-import "@/styles/main.scss"
+import "@/client/styles/main.scss"
 import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -9,11 +9,7 @@ export const metadata = {
 		"EduPlay: Learn & Earn Coins makes education exciting with fun-filled lessons on alphabets, words, and math. Kids enjoy the engaging, interactive tasks and earn coins for their achievements, turning learning into an adventurous game!",
 }
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
+function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
 			<head>
@@ -43,3 +39,5 @@ export default function RootLayout({
 		</html>
 	)
 }
+
+export default RootLayout

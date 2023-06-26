@@ -7,11 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  user
+  admin
+}
+
+model accounts {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  password String
+  role     Role    @default(user)
+  users    users[]
+}
+
 model users {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  avatar String
-  email  String @unique
-  name   String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  avatar    String
+  name      String
+  account   accounts @relation(fields: [accountId], references: [id])
+  accountId String   @db.ObjectId
+
+  @@unique([name, accountId])
 }
 
 model creaturesCategories {
