@@ -1,17 +1,21 @@
 "use client"
 
-import { FC } from "react"
+import { FC, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { signIn } from "next-auth/react"
 import Form from "react-bootstrap/Form"
 import InputField from "../ui/InputField"
 import Button from "../ui/Button"
 import { AuthSchema, type AuthUserCred } from "@/schemas/AuthSchema"
-import { trpc } from "@/client/config/trpc"
-import withTRPC from "@/client/HOC/withTRPC"
 import { Alert } from "react-bootstrap"
 
-const RegistrationForm: FC = () => {
+const LoginForm: FC = () => {
+	const [{ errorMessage, isLoading }, setLoginData] = useState({
+		errorMessage: "",
+		isLoading: false,
+	})
+
 	const {
 		register,
 		handleSubmit,
@@ -20,17 +24,22 @@ const RegistrationForm: FC = () => {
 		resolver: zodResolver(AuthSchema),
 	})
 
-	const { mutate, isLoading, isSuccess, isError, error } =
-		trpc.register.useMutation()
-
 	async function onSubmit(usersData: AuthUserCred) {
-		mutate(usersData)
+		try {
+			setLoginData({ isLoading: true, errorMessage: "" })
+			const res = await signIn("credentials", {
+				...usersData,
+				callbackUrl: "/",
+			})
+			console.log(res)
+		} catch (error) {
+			setLoginData({ isLoading: false, errorMessage: "Problem to login" })
+		}
 	}
 
 	return (
 		<>
-			{isSuccess && <Alert variant="success">User created</Alert>}
-			{isError && <Alert variant="danger">{error.message}</Alert>}
+			{errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 			<Form onSubmit={handleSubmit(onSubmit)} className="my_form">
 				<InputField
 					label="Email"
@@ -46,11 +55,11 @@ const RegistrationForm: FC = () => {
 				/>
 
 				<Button type="submit" size="sm" isLoading={isLoading}>
-					Register
+					Sign In
 				</Button>
 			</Form>
 		</>
 	)
 }
 
-export default withTRPC(RegistrationForm)
+export default LoginForm

@@ -11,6 +11,9 @@ body {
 	padding: 0 20px;
 }
 
+.my_form {
+	max-width: 500px;
+}
 .form-control {
 	&.invalid {
 		&:focus {
