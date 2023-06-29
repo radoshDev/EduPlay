@@ -1,9 +1,12 @@
-import PageLayout from "@/client/components/layouts/PageLayout"
-import LoginForm from "@/client/components/forms/LoginForm"
+import PageLayout from "@/components/layouts/PageLayout"
+import LoginForm from "@/components/forms/LoginForm"
+import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import ButtonBack from "@/components/ui/ButtonBack/ButtonBack"
 
 const RegisterPage = () => {
 	return (
-		<PageLayout title="Login">
+		<PageLayout
+			title={<PageTitle title="Login" navAction={<ButtonBack link="/" />} />}>
 			<LoginForm />
 		</PageLayout>
 	)

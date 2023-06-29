@@ -1,28 +1,31 @@
 import Link from "next/link"
-import { PlusCircleFill } from "react-bootstrap-icons"
-import { appRouter } from "@/server/routers/_app"
-import IconButton from "@/client/components/ui/IconButton"
+import { BsPlusCircleFill } from "react-icons/bs"
+import IconButton from "@/components/ui/IconButton"
+import { prisma } from "@/server/db"
+import PageLayout from "@/components/layouts/PageLayout"
+import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import ButtonBack from "@/components/ui/ButtonBack/ButtonBack"
 
 const CreaturesPage = async () => {
-	// const creatureCategories = await prisma.creaturesCategories.findMany()
-	const caller = appRouter.createCaller({ session: null })
-	const res = await caller.creature.getCreature({ id: "TEST" })
-	console.log("TRPC", res)
+	const creatureCategories = await prisma.creatureCategory.findMany()
+	console.log("creatureCategories", creatureCategories)
 
 	return (
-		<div className="container">
-			<h1>Істоти</h1>
-			{/* <div className="grid gap-4">
+		<PageLayout
+			title={
+				<PageTitle title="Creatures" navAction={<ButtonBack link="/" />} />
+			}>
+			<div className="grid gap-4">
 				{creatureCategories.map(category => (
 					<Link href={`/${category.slug}`} key={category.id}>
 						{category.title}
 					</Link>
 				))}
-			</div> */}
+			</div>
 			<Link href="/creatures/new">
-				<IconButton icon={<PlusCircleFill size={24} />} />
+				<IconButton icon={<BsPlusCircleFill size={24} />} />
 			</Link>
-		</div>
+		</PageLayout>
 	)
 }
 

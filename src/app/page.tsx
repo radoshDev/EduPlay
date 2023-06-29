@@ -1,29 +1,24 @@
-"use client"
-
-import {
-	LoginButton,
-	LogoutButton,
-	ProfileButton,
-	RegisterButton,
-} from "@/client/components/buttons"
-import { useSession } from "next-auth/react"
-import withSession from "@/client/HOC/withSession"
+import PageLayout from "@/components/layouts/PageLayout"
+import Button from "@/components/ui/Button"
 
 function Home() {
-	const { data: session, status } = useSession()
-	console.log("Session HOME page: ", session, status)
-
 	return (
-		<div className="container">
-			<h1>Home page!!!</h1>
-			<nav className="grid gap-4 text-blue-800">
-				<LoginButton />
-				<RegisterButton />
-				<LogoutButton />
-				<ProfileButton />
-			</nav>
-		</div>
+		<PageLayout
+			title={
+				<h1 className="text-center text-2xl">EduPlay: Learn & Earn Coins</h1>
+			}>
+			<div className="flex justify-center">
+				<div className="flex flex-col gap-3">
+					<Button variant="secondary" href="/register">
+						Sign Up
+					</Button>
+					<Button variant="primary" href="/login" className="btn-outline">
+						Sign in with EduPlay account
+					</Button>
+				</div>
+			</div>
+		</PageLayout>
 	)
 }
 
-export default withSession(Home)
+export default Home
