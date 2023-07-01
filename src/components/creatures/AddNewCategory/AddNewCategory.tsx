@@ -1,37 +1,73 @@
 "use client"
 
-import { trpc } from "@/client/config/trpc"
-import { FC, FormEvent } from "react"
+import { FC, FormEvent, useRef } from "react"
 import InputField from "../../ui/InputField"
 import TextAreaField from "../../ui/TextAreaField"
 import InputImageField from "../../ui/InputImageField"
-import { Button } from "react-bootstrap"
-import withTRPC from "@/client/HOC/withTRPC"
+import Button from "@/components/ui/Button"
+import { api } from "@/utils/api"
+import Toast from "@/components/ui/Toast/Toast"
 
 const AddNewCategory: FC = () => {
-	const { data, mutate } = trpc.creature.newCreature.useMutation()
+	const titleRef = useRef<HTMLInputElement | null>(null)
+	const descriptionRef = useRef<HTMLTextAreaElement | null>(null)
+	const fileRef = useRef<HTMLInputElement | null>(null)
+	const imageUrlRef = useRef<HTMLInputElement | null>(null)
+
+	const { data, mutate, isSuccess } = api.creature.newCreature.useMutation()
 
 	function onSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
-		mutate({ id: "1", name: "Test" })
+		const title = titleRef.current?.value
+		const description = descriptionRef.current?.value
+		const file = fileRef.current?.files?.[0]
+		const imageUrl = imageUrlRef.current?.value
+		if (!title) return
+		mutate({ imageUrl, title, description })
 	}
 	console.log("AddNewCategory", data)
 
 	return (
-		<form onSubmit={onSubmit} className="flex flex-col items-start gap-4">
-			<InputField label="Title" id="category-title" type="text" />
-			<TextAreaField
-				title="Description"
-				id="description"
-				rows={5}
-				name="description"
-			/>
-			<InputImageField id="image_file" name="image_file" title="Image" />
-			<div>------ or -------</div>
-			<InputField id="image_link" label="Image link" type="text" />
-			<Button type="submit">Create Category</Button>
-		</form>
+		<>
+			{isSuccess && <Toast variant="success" message="New category created!" />}
+			<form
+				onSubmit={onSubmit}
+				className="mx-auto flex max-w-sm flex-col items-center gap-3">
+				<InputField
+					required
+					label="Title"
+					id="category-title"
+					ref={titleRef}
+					type="text"
+				/>
+				<TextAreaField
+					ref={descriptionRef}
+					title="Description"
+					id="description"
+					rows={5}
+					name="description"
+				/>
+				<div className="w-full">
+					<InputImageField
+						ref={fileRef}
+						id="image_file"
+						name="image_file"
+						title="Image"
+					/>
+					<div className="divider mb-0">or</div>
+					<InputField
+						ref={imageUrlRef}
+						id="image_link"
+						label="Image link"
+						type="text"
+					/>
+				</div>
+				<Button type="submit" variant="success">
+					Create Category
+				</Button>
+			</form>
+		</>
 	)
 }
 
-export default withTRPC(AddNewCategory)
+export default AddNewCategory

@@ -9,17 +9,16 @@ type Props = {
 const InputField = (props: Props, ref: Ref<HTMLInputElement>) => {
 	const { label, error, ...inputProps } = props
 	return (
-		<div className="form-control mb-2">
-			<label className="label">{label}</label>
+		<div className="form-control mb-2 w-full">
+			<label className="label">
+				<span className="label-text">{label}</span>
+			</label>
 			<input
 				ref={ref}
 				{...inputProps}
-				className={cn(
-					"input-bordered input-info input w-full max-w-xs rounded-full",
-					{
-						["input-error"]: !!error,
-					}
-				)}
+				className={cn("input-bordered input-info input w-full rounded-full", {
+					["input-error"]: !!error,
+				})}
 			/>
 			{error && <div className="text-error">{error}</div>}
 		</div>

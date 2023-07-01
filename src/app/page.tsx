@@ -1,5 +1,7 @@
+"use client"
+
+import GithubButton from "@/components/GithubButton/GithubButton"
 import PageLayout from "@/components/layouts/PageLayout"
-import Button from "@/components/ui/Button"
 
 function Home() {
 	return (
@@ -9,12 +11,7 @@ function Home() {
 			}>
 			<div className="flex justify-center">
 				<div className="flex flex-col gap-3">
-					<Button variant="secondary" href="/register">
-						Sign Up
-					</Button>
-					<Button variant="primary" href="/login" className="btn-outline">
-						Sign in with EduPlay account
-					</Button>
+					<GithubButton />
 				</div>
 			</div>
 		</PageLayout>

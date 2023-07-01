@@ -1,18 +1,25 @@
-import { FC, TextareaHTMLAttributes } from "react"
+import { Ref, TextareaHTMLAttributes, forwardRef } from "react"
 
 type Props = {
 	id: string
 	title: string
 } & TextareaHTMLAttributes<HTMLTextAreaElement>
 
-const TextAreaField: FC<Props> = props => {
+const TextAreaField = (props: Props, ref: Ref<HTMLTextAreaElement>) => {
 	const { id, title, ...textAreaProps } = props
 	return (
-		<div className="flex flex-col w-full gap-2">
-			<label htmlFor={id}>{title}</label>
-			<textarea {...textAreaProps} id={id} className="py-2 px-4" />
+		<div className="form-control w-full">
+			<label htmlFor={id} className="label">
+				<span className="label-text">{title}</span>
+			</label>
+			<textarea
+				ref={ref}
+				{...textAreaProps}
+				id={id}
+				className="textarea-bordered textarea-info textarea h-24 resize-none"
+			/>
 		</div>
 	)
 }
 
-export default TextAreaField
+export default forwardRef(TextAreaField)

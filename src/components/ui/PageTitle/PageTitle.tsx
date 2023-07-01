@@ -1,15 +1,29 @@
 import { FC, ReactElement } from "react"
+import { BsBoxArrowInLeft } from "react-icons/bs"
+import ButtonIcon from "../buttons/ButtonIcon"
 
 type Props = {
 	title: string
 	navAction?: ReactElement
+	afterAction?: ReactElement
+	backButton?: boolean
+	href?: string
 }
 
-const PageTitle: FC<Props> = ({ title, navAction }) => {
+const PageTitle: FC<Props> = props => {
+	const { title, navAction, afterAction, backButton, href } = props
 	return (
 		<div className="mb-3 flex items-center gap-3">
+			{backButton && href && (
+				<ButtonIcon
+					icon={<BsBoxArrowInLeft size={24} />}
+					color="primary"
+					href={href}
+				/>
+			)}
 			{navAction}
-			<h3 className="text-2xl font-bold">{title}</h3>
+			<h3 className="flex-1 text-center text-2xl font-bold">{title}</h3>
+			{afterAction}
 		</div>
 	)
 }

@@ -11,7 +11,11 @@ export default {
 	plugins: [require("daisyui")],
 	safelist: [
 		{
-			pattern: /(alert|btn)-(primary|secondary|neutral|error|success|warning)/,
+			pattern:
+				/(alert|btn|text)-(primary|secondary|neutral|error|success|warning)/,
+		},
+		{
+			pattern: /btn-(lg|sm|xs)/,
 		},
 	],
 } satisfies Config

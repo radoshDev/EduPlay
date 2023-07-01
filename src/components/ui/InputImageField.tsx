@@ -1,20 +1,26 @@
-import { FC, InputHTMLAttributes } from "react"
-import Button from "./Button"
+import { InputHTMLAttributes, Ref, forwardRef } from "react"
 
 type Props = {
-	id: string
 	title: string
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
-const InputImageField: FC<Props> = props => {
+const InputImageField = (props: Props, ref: Ref<HTMLInputElement>) => {
 	const { id, title, ...inputProps } = props
 	return (
-		<label htmlFor={id} className="flex flex-col gap-2 cursor-pointer">
-			{title}
-			<Button className="pointer-events-none">Select file</Button>
-			<input type="file" {...inputProps} id={id} hidden />
-		</label>
+		<div className="form-control w-full">
+			<label htmlFor={id} className="label">
+				<span className="label-text">{title}</span>
+			</label>
+
+			<input
+				ref={ref}
+				id={id}
+				type="file"
+				className="file-input-bordered file-input-info file-input w-full"
+				{...inputProps}
+			/>
+		</div>
 	)
 }
 
-export default InputImageField
+export default forwardRef(InputImageField)

@@ -1,25 +1,22 @@
 import type { ComponentPropsWithoutRef, FC, ReactNode } from "react"
 import cn from "clsx"
 import Link from "next/link"
-import { Variant } from "@/types"
+import { Size, Variant } from "@/types/Styles"
 
-type Props = {
+export type ButtonProps = {
 	children: ReactNode
 	href?: string
 	variant?: Variant
+	size?: Size
 	isLoading?: boolean
 } & ComponentPropsWithoutRef<"button">
 
-const Button: FC<Props> = ({
-	children,
-	href,
-	isLoading,
-	className,
-	variant,
-	...otherProps
-}) => {
+const Button: FC<ButtonProps> = props => {
+	const { children, href, isLoading, className, variant, size, ...otherProps } =
+		props
 	const classes = cn(className, `btn normal-case rounded-full`, {
 		[`btn-${variant}`]: !!variant,
+		[`btn-${size}`]: !!size,
 	})
 	if (href) {
 		return (

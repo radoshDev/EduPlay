@@ -1,5 +1,10 @@
+"use client"
+
 import "@/styles/globals.css"
 import { Inter } from "next/font/google"
+import { SessionProvider } from "next-auth/react"
+import AuthGuard from "@/components/Providers/AuthGuard"
+import TRPCProvider from "@/components/Providers/TRPCProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -35,7 +40,13 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 				<meta name="msapplication-TileColor" content="#da532c" />
 				<meta name="theme-color" content="#ffffff" />
 			</head>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<SessionProvider>
+					<TRPCProvider>
+						<AuthGuard>{children}</AuthGuard>
+					</TRPCProvider>
+				</SessionProvider>
+			</body>
 		</html>
 	)
 }

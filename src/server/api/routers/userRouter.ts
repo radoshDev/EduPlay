@@ -1,11 +1,12 @@
 import { z } from "zod"
 import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { prisma } from "@/server/db"
 
 export const userRouter = createTRPCRouter({
 	getUsers: protectedProcedure
 		.input(z.object({ userId: z.string() }))
-		.query(({ input, ctx }) => {
-			return ctx.prisma.student.findMany({
+		.query(({ input }) => {
+			return prisma.student.findMany({
 				where: { userId: input.userId },
 			})
 		}),

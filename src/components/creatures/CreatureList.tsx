@@ -1,5 +1,5 @@
 import CreatureListCard from "./CreatureListCard"
-import type { creaturesCategories as CreatureCategory } from "@prisma/client"
+import type { CreatureCategory } from "@prisma/client"
 import { prisma } from "@/server/db"
 
 type Props = {
@@ -8,12 +8,12 @@ type Props = {
 }
 
 const CreaturesList = async ({ categoryId, categoryTitle }: Props) => {
-	const creatures = await prisma.creatures.findMany({
+	const creatures = await prisma.creature.findMany({
 		where: { categoryId },
 		orderBy: { name: "asc" },
 	})
 
-	if (creatures.length === 0) <div>Список {categoryTitle} порожній.</div>
+	if (creatures.length === 0) return <div>Список {categoryTitle} порожній.</div>
 
 	return (
 		<div className="grid-cols-auto-fit-250 grid gap-5">
