@@ -15,6 +15,11 @@ const config = {
 				pathname: "/storage/v1/object/public/**",
 				protocol: "https",
 			},
+			{
+				hostname: "static.wikia.nocookie.net",
+				pathname: "/**",
+				protocol: "https",
+			},
 		],
 	},
 }

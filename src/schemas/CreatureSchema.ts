@@ -26,5 +26,7 @@ export const CreatureAddSchema = z
 	.partial({ imageFile: true, imageUrl: true, description: true })
 	.refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
 
+export const CreaturesAddManySchema = z.object({ base64File: z.string() })
+
 export type CreatureCategoryInput = z.infer<typeof CreatureCategorySchema>
 export type CreatureAddInput = z.infer<typeof CreatureAddSchema>
