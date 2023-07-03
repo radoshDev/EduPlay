@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react"
+import { ComponentPropsWithoutRef, FC, ReactElement } from "react"
 import cn from "clsx"
 import Link from "next/link"
 import { Variant } from "@/types/Styles"
@@ -8,9 +8,10 @@ type Props = {
 	color: Variant
 	round?: boolean
 	href?: string
-}
+} & ComponentPropsWithoutRef<"button">
 
-const ButtonIcon: FC<Props> = ({ icon, color, round, href }) => {
+const ButtonIcon: FC<Props> = props => {
+	const { icon, color, round, href, ...buttonProps } = props
 	const classes = cn(
 		`btn text-${color} btn-sm bg-transparent`,
 		round ? "btn-circle" : "btn-square"
@@ -22,7 +23,11 @@ const ButtonIcon: FC<Props> = ({ icon, color, round, href }) => {
 			</Link>
 		)
 	}
-	return <button className={classes}>{icon}</button>
+	return (
+		<button className={classes} {...buttonProps}>
+			{icon}
+		</button>
+	)
 }
 
 export default ButtonIcon

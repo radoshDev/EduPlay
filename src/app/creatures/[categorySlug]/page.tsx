@@ -7,7 +7,7 @@ import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
 import AddCreatureButton from "@/components/creatures/AddNewCreature/AddCreatureButton"
 
-const ResultImagesPage = async ({ params }: PageProps<"categorySlug">) => {
+const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	const creaturesCategory = await prisma.creatureCategory.findUnique({
 		where: { slug: params.categorySlug },
 	})
@@ -28,7 +28,7 @@ const ResultImagesPage = async ({ params }: PageProps<"categorySlug">) => {
 				/>
 			}>
 			<CreaturesList
-				categoryId={creaturesCategory.id}
+				categorySlug={creaturesCategory.slug}
 				categoryTitle={creaturesCategory.title}
 			/>
 			<AddCreatureButton categorySlug={creaturesCategory.slug} />
@@ -36,4 +36,4 @@ const ResultImagesPage = async ({ params }: PageProps<"categorySlug">) => {
 	)
 }
 
-export default ResultImagesPage
+export default CreatureCategoryPage

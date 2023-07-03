@@ -1,22 +1,28 @@
-import AddManyCreatures from "@/components/creatures/AddNewCreature/AddManyCreatures"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
+import { notFound } from "next/navigation"
 import { ReactNode } from "react"
 
 type Props = {
 	children: ReactNode
-} & PageProps<"categorySlug">
+} & PageProps<"categorySlug" | "creatureId">
 
-const NewCreatureLayout = ({ children, params }: Props) => {
+const NewCreatureLayout = async ({ children, params }: Props) => {
+	const creature = await prisma.creature.findUnique({
+		where: { id: params.creatureId },
+	})
+
+	if (!creature) notFound()
+
 	return (
 		<PageLayout
 			title={
 				<PageTitle
-					title="New Creature"
+					title={creature.name}
 					backButton
 					href={`/creatures/${params.categorySlug}`}
-					afterAction={<AddManyCreatures />}
 				/>
 			}>
 			{children}

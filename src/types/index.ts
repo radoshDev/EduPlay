@@ -10,3 +10,5 @@ export type MessageResponse = {
 export type ErrorMessageResponse = MessageResponse & {
 	error: string
 }
+
+export type StorageBucket = "creatures"

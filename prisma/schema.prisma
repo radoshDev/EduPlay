@@ -22,15 +22,12 @@ model CreatureCategory {
 }
 
 model Creature {
-  id          String           @id @default(cuid())
-  media       String[]
-  name        String
-  slug        String
-  description String?
-  category    CreatureCategory @relation(fields: [categoryId], references: [id])
-  categoryId  String
-
-  @@unique([slug, categoryId])
+  id           String           @id @default(cuid())
+  media        String[]
+  name         String
+  description  String?
+  category     CreatureCategory @relation(fields: [categorySlug], references: [slug])
+  categorySlug String
 }
 
 model Student {

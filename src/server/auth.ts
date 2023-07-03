@@ -11,13 +11,14 @@ import { env } from "@/env.mjs"
 import { User as PUser } from "@prisma/client"
 
 declare module "next-auth" {
+	// eslint-disable-next-line no-unused-vars
 	interface Session extends DefaultSession {
 		user: {
 			id: string
 			role: PUser["role"]
 		} & DefaultSession["user"]
 	}
-
+	// eslint-disable-next-line no-unused-vars
 	interface User {
 		// ...other properties
 		role: PUser["role"]

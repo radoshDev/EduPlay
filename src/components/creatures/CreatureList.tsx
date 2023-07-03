@@ -1,24 +1,27 @@
-import CreatureListCard from "./CreatureListCard"
+import Link from "next/link"
 import type { CreatureCategory } from "@prisma/client"
 import { prisma } from "@/server/db"
+import ImageCard from "../ui/ImageCard"
 
 type Props = {
-	categoryId: CreatureCategory["id"]
+	categorySlug: CreatureCategory["slug"]
 	categoryTitle: CreatureCategory["title"]
 }
 
-const CreaturesList = async ({ categoryId, categoryTitle }: Props) => {
+const CreaturesList = async ({ categorySlug, categoryTitle }: Props) => {
 	const creatures = await prisma.creature.findMany({
-		where: { categoryId },
+		where: { categorySlug },
 		orderBy: { name: "asc" },
 	})
 
 	if (creatures.length === 0) return <div>Список {categoryTitle} порожній.</div>
 
 	return (
-		<div className="grid-cols-auto-fit-250 grid gap-5">
+		<div className="mb-6 flex flex-wrap justify-center gap-3">
 			{creatures.map(creature => (
-				<CreatureListCard {...creature} key={creature.id} />
+				<Link href={`${categorySlug}/${creature.id}`} key={creature.id}>
+					<ImageCard title={creature.name} imageSrc={creature.media[0]} />
+				</Link>
 			))}
 		</div>
 	)

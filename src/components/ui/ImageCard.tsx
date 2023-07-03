@@ -9,9 +9,15 @@ type Props = {
 const ImageCard: FC<Props> = ({ imageSrc, title }) => {
 	const capitalizeTitle = title[0].toUpperCase() + title.slice(1)
 	return (
-		<div className="gap-4 grid justify-center">
-			<Image className="self-center" src={imageSrc} alt={title} width={400} height={400} />
-			<div className="text-2xl font-bold text-center">{capitalizeTitle}</div>
+		<div className="grid h-52 justify-center gap-4 rounded-lg p-3 shadow-lg">
+			<Image
+				className="h-full min-h-full self-center object-contain"
+				src={imageSrc}
+				alt={title}
+				width={170}
+				height={200}
+			/>
+			<div className="text-center text-2xl font-bold">{capitalizeTitle}</div>
 		</div>
 	)
 }

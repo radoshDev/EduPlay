@@ -14,7 +14,7 @@ const AddNewCategory: FC = () => {
 	const fileRef = useRef<HTMLInputElement | null>(null)
 	const imageUrlRef = useRef<HTMLInputElement | null>(null)
 
-	const { data, mutate, isSuccess } = api.creature.newCreature.useMutation()
+	const { data, mutate, isSuccess } = api.creature.addCategory.useMutation()
 
 	function onSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
