@@ -26,7 +26,7 @@ const Button: FC<ButtonProps> = props => {
 		)
 	}
 	return (
-		<button className={classes} {...otherProps}>
+		<button disabled={isLoading} className={classes} {...otherProps}>
 			{isLoading ? (
 				<span className="loading loading-spinner loading-sm" />
 			) : (

@@ -20,6 +20,11 @@ const config = {
 				pathname: "/**",
 				protocol: "https",
 			},
+			{
+				hostname: "raw.githubusercontent.com",
+				pathname: "/**",
+				protocol: "https",
+			},
 		],
 	},
 }

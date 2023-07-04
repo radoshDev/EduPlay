@@ -6,7 +6,14 @@ import uploadImageToStorage from "@/utils/uploadImageToStorage"
 const addCreatureHandler = protectedProcedure
 	.input(CreatureAddSchema)
 	.mutation(async ({ input }) => {
-		const { categorySlug, description, imageFile, imageUrl, name } = input
+		const {
+			categorySlug,
+			description,
+			descriptionUA,
+			imageFile,
+			imageUrl,
+			name,
+		} = input
 		let media = ""
 		if (imageFile) {
 			media = await uploadImageToStorage({
@@ -18,7 +25,7 @@ const addCreatureHandler = protectedProcedure
 		}
 		if (imageUrl) media = imageUrl
 		return prisma.creature.create({
-			data: { name, categorySlug, description, media },
+			data: { name, categorySlug, description, descriptionUA, media },
 		})
 	})
 

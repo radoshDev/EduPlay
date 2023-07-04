@@ -8,7 +8,7 @@ import { api } from "@/utils/api"
 import toBase64 from "@/helpers/toBase64"
 
 const AddManyCreatures: FC = () => {
-	const { data, error, isSuccess, isError, mutate } =
+	const { data, error, isSuccess, isError, mutate, isLoading } =
 		api.creature.addManyCreatures.useMutation()
 	const fileRef = useRef<HTMLInputElement | null>(null)
 	function handleShowModal() {
@@ -49,7 +49,11 @@ const AddManyCreatures: FC = () => {
 						accept=".csv"
 						className="file-input-bordered file-input-success file-input w-full"
 					/>
-					<Button variant="primary" className="mt-6" onClick={handleImportFile}>
+					<Button
+						isLoading={isLoading}
+						variant="primary"
+						className="mt-6"
+						onClick={handleImportFile}>
 						IMPORT
 					</Button>
 					{isSuccess && (

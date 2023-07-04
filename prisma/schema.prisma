@@ -13,21 +13,23 @@ enum Role {
 }
 
 model CreatureCategory {
-  id          String     @id @default(cuid())
-  title       String
-  imageUrl    String?
-  slug        String     @unique
-  description String?
-  creatures   Creature[]
+  id            String     @id @default(cuid())
+  title         String
+  imageUrl      String
+  slug          String     @unique
+  description   String?
+  descriptionUA String?
+  creatures     Creature[]
 }
 
 model Creature {
-  id           String           @id @default(cuid())
-  media        String[]
-  name         String
-  description  String?
-  category     CreatureCategory @relation(fields: [categorySlug], references: [slug])
-  categorySlug String
+  id            String           @id @default(cuid())
+  media         String[]
+  name          String
+  description   String?
+  descriptionUA String?
+  category      CreatureCategory @relation(fields: [categorySlug], references: [slug])
+  categorySlug  String
 }
 
 model Student {

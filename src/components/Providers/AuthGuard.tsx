@@ -25,7 +25,7 @@ const AuthGuard = ({ children }: Props) => {
 		return
 	}
 	if (status === "authenticated" && path === "/") {
-		router.push("/dashboard")
+		router.push("/students")
 		return
 	}
 	return children

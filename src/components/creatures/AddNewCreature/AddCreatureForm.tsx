@@ -5,7 +5,7 @@ import Button from "@/components/ui/Button"
 import InputField from "@/components/ui/InputField"
 import InputImageField from "@/components/ui/InputImageField"
 import TextAreaField from "@/components/ui/TextAreaField"
-import Toast from "@/components/ui/Toast/Toast"
+import Toast from "@/components/ui/Toast"
 import toBase64 from "@/helpers/toBase64"
 import { CreatureAddInput } from "@/schemas/CreatureSchema"
 import { api } from "@/utils/api"
@@ -17,15 +17,18 @@ type Props = {
 const AddCreatureForm: FC<Props> = ({ categorySlug }) => {
 	const nameRef = useRef<HTMLInputElement | null>(null)
 	const descriptionRef = useRef<HTMLTextAreaElement | null>(null)
+	const descriptionUARef = useRef<HTMLTextAreaElement | null>(null)
 	const fileRef = useRef<HTMLInputElement | null>(null)
 	const imageUrlRef = useRef<HTMLInputElement | null>(null)
-	const { mutate, isSuccess, isError, error } =
+
+	const { mutate, isSuccess, isError, error, isLoading } =
 		api.creature.addCreature.useMutation()
 
 	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		const name = nameRef.current?.value
 		const description = descriptionRef.current?.value
+		const descriptionUA = descriptionUARef.current?.value
 		const file = fileRef.current?.files?.[0]
 		let imageUrl = imageUrlRef.current?.value
 		let imageFile: CreatureAddInput["imageFile"] | undefined
@@ -36,7 +39,14 @@ const AddCreatureForm: FC<Props> = ({ categorySlug }) => {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
 
-		mutate({ categorySlug, description, imageUrl, imageFile, name })
+		mutate({
+			categorySlug,
+			description,
+			descriptionUA,
+			imageUrl,
+			imageFile,
+			name,
+		})
 	}
 
 	return (
@@ -55,13 +65,18 @@ const AddCreatureForm: FC<Props> = ({ categorySlug }) => {
 					title="Description"
 					id="creature-desc"
 				/>
+				<TextAreaField
+					ref={descriptionUARef}
+					title="Description UA"
+					id="creature-desc-ua"
+				/>
 				<InputField label="Category" value={categorySlug} disabled />
 				<div className="mb-5">
 					<InputImageField ref={fileRef} title="Image" />
 					<div className="divider mb-0">or</div>
 					<InputField ref={imageUrlRef} label="Image URL" />
 				</div>
-				<Button type="submit" variant="success">
+				<Button isLoading={isLoading} type="submit" variant="success">
 					Create
 				</Button>
 			</form>
