@@ -17,7 +17,7 @@ const CreaturesList = async ({ categorySlug, categoryTitle }: Props) => {
 	if (creatures.length === 0) return <div>Список {categoryTitle} порожній.</div>
 
 	return (
-		<div className="mb-6 flex flex-wrap justify-center gap-3">
+		<div className="mb-6 flex flex-1 flex-wrap justify-center gap-3 overflow-auto">
 			{creatures.map(creature => (
 				<Link href={`${categorySlug}/${creature.id}`} key={creature.id}>
 					<ImageCard title={creature.name} imageSrc={creature.media[0]} />

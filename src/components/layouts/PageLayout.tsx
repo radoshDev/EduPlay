@@ -1,16 +1,18 @@
-import { FC, ReactElement, ReactNode } from "react"
+import { FC, ReactElement } from "react"
 
 type Props = {
-	children: ReactNode
+	children: ReactElement
 	title?: ReactElement
 }
 
 const PageLayout: FC<Props> = ({ children, title }) => {
 	return (
-		<div className="py-4">
-			<div className="container mx-auto px-4">
+		<div className="h-screen">
+			<div className="container mx-auto flex h-full flex-col p-4">
 				{title}
-				<div className="py-6">{children}</div>
+				<div className="flex min-h-0 flex-1 justify-center py-6">
+					{children}
+				</div>
 			</div>
 		</div>
 	)

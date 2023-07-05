@@ -27,11 +27,13 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 					}
 				/>
 			}>
-			<CreaturesList
-				categorySlug={creaturesCategory.slug}
-				categoryTitle={creaturesCategory.title}
-			/>
-			<AddCreatureButton categorySlug={creaturesCategory.slug} />
+			<div className="flex flex-col">
+				<CreaturesList
+					categorySlug={creaturesCategory.slug}
+					categoryTitle={creaturesCategory.title}
+				/>
+				<AddCreatureButton categorySlug={creaturesCategory.slug} />
+			</div>
 		</PageLayout>
 	)
 }

@@ -1,14 +1,11 @@
-import { z } from "zod"
-import { publicProcedure, createTRPCRouter } from "../trpc"
+import { createTRPCRouter } from "../trpc"
 import { creatureRouter } from "./creatureRouter"
+import studentRouter from "./studentRouter"
+import { registerHandler } from "../handlers/registerHandler"
 
 export const appRouter = createTRPCRouter({
-	addUser: publicProcedure
-		.input(z.object({ name: z.string() }))
-		.mutation(({ input }) => {
-			console.log("user adding:", input)
-			return `User ${input.name} has been added!`
-		}),
+	register: registerHandler,
+	student: studentRouter,
 	creature: creatureRouter,
 })
 

@@ -6,7 +6,7 @@ const CategoryList = async () => {
 	const creatureCategories = await prisma.creatureCategory.findMany()
 
 	return (
-		<div className="grid gap-4">
+		<div className="flex flex-1 flex-col gap-4 overflow-auto p-3">
 			{creatureCategories.map(category => (
 				<Link href={`/creatures/${category.slug}`} key={category.id}>
 					<CategoryCard title={category.title} imageSrc={category.imageUrl} />

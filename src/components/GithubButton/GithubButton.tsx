@@ -9,7 +9,7 @@ const GithubButton: FC = () => {
 		<Button
 			variant="neutral"
 			className="btn-sm"
-			onClick={() => signIn("github", { callbackUrl: "/" })}>
+			onClick={() => signIn("github", { callbackUrl: "/students" })}>
 			Github
 		</Button>
 	)

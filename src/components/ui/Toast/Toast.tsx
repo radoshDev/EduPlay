@@ -23,7 +23,7 @@ const Toast: FC<Props> = ({ message, variant }) => {
 
 	if (!show) return null
 	return (
-		<div className="toast">
+		<div className="toast-center toast toast-top">
 			<Alert variant={variant} message={message} />
 		</div>
 	)

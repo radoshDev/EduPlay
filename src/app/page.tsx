@@ -1,19 +1,15 @@
-"use client"
-
-import GithubButton from "@/components/GithubButton/GithubButton"
+import { getServerAuthSession } from "@/server/auth"
 import PageLayout from "@/components/layouts/PageLayout"
+import Button from "@/components/ui/Button"
 
-function Home() {
+async function Home() {
+	const session = await getServerAuthSession()
 	return (
 		<PageLayout
 			title={
 				<h1 className="text-center text-2xl">EduPlay: Learn & Earn Coins</h1>
 			}>
-			<div className="flex justify-center">
-				<div className="flex flex-col gap-3">
-					<GithubButton />
-				</div>
-			</div>
+			<Button href={session ? "/students" : "/login"}>Get started</Button>
 		</PageLayout>
 	)
 }

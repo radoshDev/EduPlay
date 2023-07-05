@@ -6,7 +6,10 @@ import { signOut } from "next-auth/react"
 
 const ButtonLogout: FC = () => {
 	return (
-		<Button variant="success" className="btn-sm" onClick={() => signOut()}>
+		<Button
+			variant="success"
+			className="btn-sm"
+			onClick={() => signOut({ callbackUrl: "/login" })}>
 			Logout
 		</Button>
 	)
