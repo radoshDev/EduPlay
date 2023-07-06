@@ -1,6 +1,6 @@
 "use client"
 import { FC, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -11,6 +11,9 @@ import { AuthSchema, type AuthUserCred } from "@/schemas/AuthSchema"
 const LoginForm: FC = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const router = useRouter()
+	const searchParams = useSearchParams()
+	const callbackUrl = searchParams.get("callbackUrl")
+
 	const {
 		register,
 		handleSubmit,
@@ -29,7 +32,7 @@ const LoginForm: FC = () => {
 				setError("root", { message: res.error })
 				return
 			}
-			router.push("/students")
+			router.push(callbackUrl || "/students")
 		} catch (error) {
 			setError("root", { message: "Unexpected error!" })
 		} finally {
