@@ -10,7 +10,7 @@ const AccountPage = async () => {
 
 	return (
 		<PageLayout
-			title={<PageTitle title="Account" backButton href="/dashboard" />}>
+			title={<PageTitle title="Account" backButton href="/students" />}>
 			<div className="flex justify-center">
 				<div className="flex flex-col gap-3">
 					<div>Hey {session?.user.name || "Unknown"}</div>

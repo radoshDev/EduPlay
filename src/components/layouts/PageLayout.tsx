@@ -10,7 +10,7 @@ const PageLayout: FC<Props> = ({ children, title }) => {
 		<div className="h-screen">
 			<div className="container mx-auto flex h-full flex-col p-4">
 				{title}
-				<div className="flex min-h-0 flex-1 justify-center py-6">
+				<div className="flex min-h-0 flex-1 justify-center pt-6">
 					{children}
 				</div>
 			</div>

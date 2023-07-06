@@ -6,6 +6,7 @@ import CreaturesList from "@/components/creatures/CreatureList"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
 import AddCreatureButton from "@/components/creatures/AddNewCreature/AddCreatureButton"
+import { getServerAuthSession } from "@/server/auth"
 
 const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	const creaturesCategory = await prisma.creatureCategory.findUnique({
@@ -13,6 +14,8 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	})
 	if (!creaturesCategory) notFound()
 
+	const session = await getServerAuthSession()
+	const isAdmin = session?.user.role === "admin"
 	return (
 		<PageLayout
 			title={
@@ -32,7 +35,7 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 					categorySlug={creaturesCategory.slug}
 					categoryTitle={creaturesCategory.title}
 				/>
-				<AddCreatureButton categorySlug={creaturesCategory.slug} />
+				{isAdmin && <AddCreatureButton categorySlug={creaturesCategory.slug} />}
 			</div>
 		</PageLayout>
 	)

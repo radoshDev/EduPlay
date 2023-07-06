@@ -5,6 +5,12 @@ import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
 import CategoryList from "@/components/creatures/CategoryList"
 import { getServerAuthSession } from "@/server/auth"
 
+export const metadata = {
+	title: "Creature | EduPlay",
+	description:
+		"EduPlay: Learn & Earn Coins makes education exciting with fun-filled lessons on alphabets, words, and math. Kids enjoy the engaging, interactive tasks and earn coins for their achievements, turning learning into an adventurous game!",
+}
+
 const CreaturesPage = async () => {
 	const session = await getServerAuthSession()
 	const isAdmin = session?.user.role === "admin"
