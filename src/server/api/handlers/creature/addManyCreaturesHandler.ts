@@ -1,11 +1,11 @@
 import csvParser from "@/helpers/csvParser"
 import { CreaturesAddManySchema } from "@/schemas/CreatureSchema"
-import { protectedProcedure } from "@/server/api/trpc"
+import { adminProcedure } from "@/server/api/trpc"
 import { prisma } from "@/server/db"
 import { Creature } from "@prisma/client"
 import { errorHandler } from "../errorHandler"
 
-const addManyCreaturesHandler = protectedProcedure
+const addManyCreaturesHandler = adminProcedure
 	.input(CreaturesAddManySchema)
 	.mutation(async ({ input }) => {
 		try {

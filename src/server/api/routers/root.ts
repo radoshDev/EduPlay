@@ -4,9 +4,9 @@ import studentRouter from "./studentRouter"
 import { registerHandler } from "../handlers/registerHandler"
 
 export const appRouter = createTRPCRouter({
+	creature: creatureRouter,
 	register: registerHandler,
 	student: studentRouter,
-	creature: creatureRouter,
 })
 
 export type AppRouter = typeof appRouter

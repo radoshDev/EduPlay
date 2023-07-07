@@ -14,7 +14,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" data-theme="light">
 			<head>
-				<link
+				{/* <link
 					rel="apple-touch-icon"
 					sizes="180x180"
 					href="/apple-touch-icon.png"
@@ -30,10 +30,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 					type="image/png"
 					sizes="16x16"
 					href="/favicon-16x16.png"
-				/>
-				<link rel="manifest" href="/site.webmanifest" />
-				<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-				<meta name="msapplication-TileColor" content="#da532c" />
+				/> */}
+				{/* <link rel="manifest" href="/site.webmanifest" /> */}
+				{/* <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+				<meta name="msapplication-TileColor" content="#da532c" /> */}
 				<meta name="theme-color" content="#ffffff" />
 			</head>
 			<body className={inter.className}>

@@ -1,9 +1,9 @@
 import { CreatureAddSchema } from "@/schemas/CreatureSchema"
-import { protectedProcedure } from "../../trpc"
+import { adminProcedure } from "../../trpc"
 import { prisma } from "@/server/db"
 import uploadImageToStorage from "@/utils/uploadImageToStorage"
 
-const addCreatureHandler = protectedProcedure
+const addCreatureHandler = adminProcedure
 	.input(CreatureAddSchema)
 	.mutation(async ({ input }) => {
 		const {

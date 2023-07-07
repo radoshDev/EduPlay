@@ -11,9 +11,10 @@ type Props = {
 } & ComponentPropsWithoutRef<"button">
 
 const ButtonIcon: FC<Props> = props => {
-	const { icon, color, round, href, ...buttonProps } = props
+	const { icon, color, round, href, className, ...buttonProps } = props
 	const classes = cn(
 		`btn text-${color} btn-sm bg-transparent`,
+		className,
 		round ? "btn-circle" : "btn-square"
 	)
 	if (href) {

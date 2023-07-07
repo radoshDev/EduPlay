@@ -1,12 +1,12 @@
 import { CreatureCategorySchema } from "@/schemas/CreatureSchema"
-import { protectedProcedure } from "@/server/api/trpc"
+import { adminProcedure } from "@/server/api/trpc"
 import { prisma } from "@/server/db"
 import { TRPCError } from "@trpc/server"
 import slugify from "slugify"
 import { errorHandler } from "../errorHandler"
 import uploadImageToStorage from "@/utils/uploadImageToStorage"
 
-const addCategoryHandler = protectedProcedure
+const addCategoryHandler = adminProcedure
 	.input(CreatureCategorySchema)
 	.mutation(async ({ input }) => {
 		try {

@@ -1,4 +1,4 @@
-import GithubButton from "@/components/GithubButton"
+import GithubButton from "@/components/SocialAuth/GithubButton"
 
 const SocialAuth = () => {
 	return (

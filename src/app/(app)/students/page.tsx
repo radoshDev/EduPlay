@@ -3,6 +3,7 @@ import { BsFillGearFill } from "react-icons/bs"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
+import StudentList from "@/components/students/StudentList"
 
 export const metadata = {
 	title: "Students | EduPlay",
@@ -22,9 +23,11 @@ const StudentsPage = () => {
 	return (
 		<PageLayout
 			title={<PageTitle title="Students" afterAction={accountSettings} />}>
-			<div className="flex flex-col">
-				<div className="flex-1">Students</div>
-				<ButtonAdd href="/students/new" />
+			<div className="flex w-full max-w-md flex-col">
+				<StudentList />
+				<div className="text-center">
+					<ButtonAdd href="/students/new" />
+				</div>
 			</div>
 		</PageLayout>
 	)

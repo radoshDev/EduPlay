@@ -9,7 +9,7 @@ type Props = {
 const InputField = (props: Props, ref: Ref<HTMLInputElement>) => {
 	const { label, error, ...inputProps } = props
 	return (
-		<div className="form-control mb-2 w-full">
+		<div className="form-control mb-4 w-full">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
@@ -20,7 +20,7 @@ const InputField = (props: Props, ref: Ref<HTMLInputElement>) => {
 					["input-error"]: !!error,
 				})}
 			/>
-			{error && <div className="text-error">{error}</div>}
+			{error && <div className="mt-1 text-error">{error}</div>}
 		</div>
 	)
 }

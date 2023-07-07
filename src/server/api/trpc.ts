@@ -21,17 +21,21 @@ export const createTRPCRouter = t.router
 
 export const publicProcedure = t.procedure
 
-const adminMiddleware = t.middleware(({ next, ctx }) => {
-	const { session } = ctx
-	if (!session || !session.user) {
+const authMiddleware = t.middleware(({ next, ctx }) => {
+	if (!ctx.session?.user) {
 		throw new TRPCError({ code: "UNAUTHORIZED" })
 	}
-	console.log("adminMiddleware", session.user)
+	return next({ ctx })
+})
 
-	if (session.user.role !== "admin") {
+export const protectedProcedure = publicProcedure.use(authMiddleware)
+
+const adminMiddleware = t.middleware(({ next, ctx }) => {
+	const { session } = ctx
+	if (session?.user.role !== "admin") {
 		throw new TRPCError({ code: "FORBIDDEN" })
 	}
 	return next({ ctx })
 })
 
-export const protectedProcedure = t.procedure.use(adminMiddleware)
+export const adminProcedure = protectedProcedure.use(adminMiddleware)
