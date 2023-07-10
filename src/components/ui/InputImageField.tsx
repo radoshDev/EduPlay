@@ -1,15 +1,16 @@
 import { InputHTMLAttributes, Ref, forwardRef } from "react"
 
 type Props = {
-	title: string
+	label: string
+	error?: string
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "type">
 
 const InputImageField = (props: Props, ref: Ref<HTMLInputElement>) => {
-	const { id, title, ...inputProps } = props
+	const { id, label, error, ...inputProps } = props
 	return (
 		<div className="form-control w-full">
 			<label htmlFor={id} className="label">
-				<span className="label-text">{title}</span>
+				<span className="label-text">{label}</span>
 			</label>
 
 			<input
@@ -19,6 +20,7 @@ const InputImageField = (props: Props, ref: Ref<HTMLInputElement>) => {
 				className="file-input-bordered file-input-info file-input w-full"
 				{...inputProps}
 			/>
+			{error && <div className="mt-1 text-error">{error}</div>}
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-export type Size = "lg" | "sm" | "xs"
+export type Size = "lg" | "md" | "sm" | "xs"
 
 export type Color = "blue" | "green" | "red" | "yellow"
 export type Variant =

@@ -2,6 +2,7 @@ import Link from "next/link"
 import type { CreatureCategory } from "@prisma/client"
 import { prisma } from "@/server/db"
 import ImageCard from "../ui/ImageCard"
+import { ReactNode } from "react"
 
 type Props = {
 	categorySlug: CreatureCategory["slug"]
@@ -13,16 +14,20 @@ const CreaturesList = async ({ categorySlug, categoryTitle }: Props) => {
 		where: { categorySlug },
 		orderBy: { name: "asc" },
 	})
-
-	if (creatures.length === 0) return <div>Список {categoryTitle} порожній.</div>
+	let content: ReactNode
+	if (creatures.length === 0) {
+		content = <div>Список {categoryTitle} порожній.</div>
+	} else {
+		content = creatures.map(creature => (
+			<Link href={`${categorySlug}/${creature.id}`} key={creature.id}>
+				<ImageCard title={creature.name} imageSrc={creature.media[0]} />
+			</Link>
+		))
+	}
 
 	return (
-		<div className="mb-6 flex flex-1 flex-wrap justify-center gap-3 overflow-auto">
-			{creatures.map(creature => (
-				<Link href={`${categorySlug}/${creature.id}`} key={creature.id}>
-					<ImageCard title={creature.name} imageSrc={creature.media[0]} />
-				</Link>
-			))}
+		<div className="mb-6 flex flex-1 flex-wrap content-start items-start justify-center gap-3 overflow-auto">
+			{content}
 		</div>
 	)
 }

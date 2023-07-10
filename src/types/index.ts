@@ -12,3 +12,10 @@ export type ErrorMessageResponse = MessageResponse & {
 }
 
 export type StorageBucket = "creatures"
+
+export type Category = {
+	id: string
+	title: string
+	slug: string
+	imageUrl: string
+}

@@ -1,53 +1,42 @@
-import { z } from "zod"
+import { ZodType, z } from "zod"
+import { ImageFileSchema, validateImage } from "./RootSchema"
 
-export const CreatureCategorySchema = z
-	.object({
-		title: z.string().min(3),
-		description: z.string(),
-		descriptionUA: z.string(),
-		imageFile: z.object({
-			name: z
-				.string()
-				.refine(val => /\w+\.(jpg|png|jpeg|svg|gif|webp)/.test(val)),
-			base64: z.string(),
-		}),
-		imageUrl: z.string(),
-	})
-	.partial({
-		imageFile: true,
-		imageUrl: true,
-		description: true,
-		descriptionUA: true,
-	})
-	.refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
+const CreatureCategorySchema = z.object({
+	title: z.string().min(3),
+	description: z.string().optional(),
+	descriptionUA: z.string().optional(),
+	imageUrl: z.string().optional(),
+})
+
+export const CreatureCategoryFormSchema = CreatureCategorySchema.extend({
+	imageFile: z.any().optional() as ZodType<FileList | undefined>,
+}).superRefine(validateImage)
+
+export const CreatureCategoryInputSchema = CreatureCategorySchema.extend({
+	imageFile: ImageFileSchema,
+}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
 
 export const CreatureGetSchema = z.object({
 	id: z.string(),
 })
 
-export const CreatureAddSchema = z
-	.object({
-		name: z.string(),
-		description: z.string(),
-		descriptionUA: z.string(),
-		categorySlug: z.string(),
-		imageFile: z.object({
-			name: z
-				.string()
-				.refine(val => /\w+\.(jpg|png|jpeg|svg|gif|webp)/.test(val)),
-			base64: z.string(),
-		}),
-		imageUrl: z.string(),
-	})
-	.partial({
-		imageFile: true,
-		imageUrl: true,
-		description: true,
-		descriptionUA: true,
-	})
-	.refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
+const CreatureSchema = z.object({
+	name: z.string(),
+	description: z.string().optional(),
+	descriptionUA: z.string().optional(),
+	imageUrl: z.string().optional(),
+})
+
+export const CreatureFormSchema = CreatureSchema.extend({
+	imageFile: z.any().optional() as ZodType<FileList | undefined>,
+}).superRefine(validateImage)
+
+export const CreatureInputSchema = CreatureSchema.extend({
+	imageFile: ImageFileSchema,
+	categorySlug: z.string(),
+}).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
 
 export const CreaturesAddManySchema = z.object({ base64File: z.string() })
 
-export type CreatureCategoryInput = z.infer<typeof CreatureCategorySchema>
-export type CreatureAddInput = z.infer<typeof CreatureAddSchema>
+export type CreatureCategoryForm = z.infer<typeof CreatureCategoryFormSchema>
+export type CreatureForm = z.infer<typeof CreatureFormSchema>

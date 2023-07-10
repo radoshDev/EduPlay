@@ -5,8 +5,8 @@ import Button from "@/components/ui/Button"
 import CreaturesList from "@/components/creatures/CreatureList"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import AddCreatureButton from "@/components/creatures/AddNewCreature/AddCreatureButton"
 import { getServerAuthSession } from "@/server/auth"
+import ButtonAdd from "@/components/ui/buttons/ButtonAdd"
 
 const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	const creaturesCategory = await prisma.creatureCategory.findUnique({
@@ -30,12 +30,14 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 					}
 				/>
 			}>
-			<div className="flex flex-col">
+			<div className="flex flex-1 flex-col items-center">
 				<CreaturesList
 					categorySlug={creaturesCategory.slug}
 					categoryTitle={creaturesCategory.title}
 				/>
-				{isAdmin && <AddCreatureButton categorySlug={creaturesCategory.slug} />}
+				{isAdmin && (
+					<ButtonAdd href={`/creatures/${creaturesCategory.slug}/new`} />
+				)}
 			</div>
 		</PageLayout>
 	)

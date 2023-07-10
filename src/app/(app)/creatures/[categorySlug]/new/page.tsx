@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation"
 import { getServerAuthSession } from "@/server/auth"
-import AddManyCreatures from "@/components/creatures/AddNewCreature/AddManyCreatures"
+import AddManyCreatures from "@/components/creatures/NewCreature/AddManyCreatures"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import AddCreatureForm from "@/components/creatures/AddNewCreature/AddCreatureForm"
+import NewCreatureForm from "@/components/forms/NewCreatureForm"
 import { PageProps } from "@/types"
 
 const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
@@ -20,9 +20,7 @@ const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
 					afterAction={<AddManyCreatures />}
 				/>
 			}>
-			<div>
-				<AddCreatureForm categorySlug={params.categorySlug} />
-			</div>
+			<NewCreatureForm categorySlug={params.categorySlug} />
 		</PageLayout>
 	)
 }

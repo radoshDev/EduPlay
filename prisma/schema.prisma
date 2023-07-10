@@ -35,6 +35,32 @@ model Student {
   userId String
 }
 
+model TaskCategory {
+  id            String            @id @default(cuid())
+  title         String
+  imageUrl      String
+  slug          String            @unique
+  subCategories TaskSubCategory[]
+}
+
+model TaskSubCategory {
+  id               String       @id @default(cuid())
+  title            String
+  imageUrl         String
+  slug             String       @unique
+  parentCategory   TaskCategory @relation(fields: [parentCategoryId], references: [id])
+  parentCategoryId String
+  tasks            Task[]
+}
+
+model Task {
+  id            String          @id @default(cuid())
+  value         String
+  result        String
+  subCategory   TaskSubCategory @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())

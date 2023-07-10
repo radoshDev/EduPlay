@@ -2,8 +2,9 @@ import { BsPlusCircleFill } from "react-icons/bs"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
 import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
-import CategoryList from "@/components/creatures/CategoryList"
+import CategoryList from "@/components/ui/CategoryList/CategoryList"
 import { getServerAuthSession } from "@/server/auth"
+import { prisma } from "@/server/db"
 
 export const metadata = {
 	title: "Creature | EduPlay",
@@ -13,12 +14,13 @@ export const metadata = {
 
 const CreaturesPage = async () => {
 	const session = await getServerAuthSession()
+	const creatureCategories = await prisma.creatureCategory.findMany()
 	const isAdmin = session?.user.role === "admin"
 	return (
 		<PageLayout
 			title={<PageTitle title="Creatures" backButton href="/account" />}>
 			<div className="flex w-full max-w-md flex-col">
-				<CategoryList />
+				<CategoryList list={creatureCategories} hrefStart="creatures" />
 				{isAdmin && (
 					<div className="mt-6 text-center">
 						<ButtonIcon

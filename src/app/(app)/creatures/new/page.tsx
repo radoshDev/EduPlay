@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { getServerAuthSession } from "@/server/auth"
-import AddNewCategory from "@/components/creatures/AddNewCategory/AddNewCategory"
+import NewCreatureCategoryForm from "@/components/forms/NewCreatureCategoryForm"
 import PageLayout from "@/components/layouts/PageLayout"
 import PageTitle from "@/components/ui/PageTitle/PageTitle"
 
@@ -17,7 +17,7 @@ const NewCategoryPage = async () => {
 					href="/creatures"
 				/>
 			}>
-			<AddNewCategory />
+			<NewCreatureCategoryForm />
 		</PageLayout>
 	)
 }

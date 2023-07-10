@@ -1,16 +1,16 @@
-import { CreatureCategoryInputSchema } from "@/schemas/CreatureSchema"
-import { adminProcedure } from "@/server/api/trpc"
+import slugify from "slugify"
 import { prisma } from "@/server/db"
 import { TRPCError } from "@trpc/server"
-import slugify from "slugify"
-import { errorHandler } from "../errorHandler"
+import { TaskCategoryInputSchema } from "@/schemas/TaskSchema"
 import uploadImageToStorage from "@/utils/uploadImageToStorage"
+import { adminProcedure } from "../../trpc"
+import { errorHandler } from "../errorHandler"
 
-const addCategoryHandler = adminProcedure
-	.input(CreatureCategoryInputSchema)
+export const addTaskCategoryHandler = adminProcedure
+	.input(TaskCategoryInputSchema)
 	.mutation(async ({ input }) => {
 		try {
-			const { imageUrl, title, description, imageFile, descriptionUA } = input
+			const { title, imageFile, imageUrl } = input
 			const slug = slugify(title.toLowerCase())
 			const existCategory = await prisma.creatureCategory.findUnique({
 				where: { slug },
@@ -28,14 +28,11 @@ const addCategoryHandler = adminProcedure
 			}
 			if (imageUrl) media = imageUrl
 
-			await prisma.creatureCategory.create({
-				data: { slug, title, description, descriptionUA, imageUrl: media },
+			await prisma.taskCategory.create({
+				data: { imageUrl: media, slug, title },
 			})
-
-			return { message: `Category ${title} have been created!` }
+			return { message: `Task category ${title} have been created!` }
 		} catch (error) {
 			errorHandler(error)
 		}
 	})
-
-export default addCategoryHandler
