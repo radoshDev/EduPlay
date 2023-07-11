@@ -1,4 +1,4 @@
-import NewStudentForm from "@/components/forms/NewStudentForm/NewStudentForm"
+import { NewStudentForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"

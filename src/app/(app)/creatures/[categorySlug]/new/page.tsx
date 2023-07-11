@@ -3,7 +3,7 @@ import { getServerAuthSession } from "@/server/auth"
 import AddManyCreatures from "@/components/creatures/NewCreature/AddManyCreatures"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
-import NewCreatureForm from "@/components/forms/NewCreatureForm"
+import { NewCreatureForm } from "@/components/forms"
 import { PageProps } from "@/types"
 
 const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {

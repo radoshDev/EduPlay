@@ -1,5 +1,5 @@
 import Link from "next/link"
-import CategoryCard from "../CategoryCard"
+import { CategoryCard } from "@/components/ui"
 import { Category } from "@/types"
 import { ReactNode } from "react"
 
@@ -11,7 +11,7 @@ type Props = {
 const CategoryList = ({ list, hrefStart }: Props) => {
 	let content: ReactNode
 	if (list.length === 0) {
-		content = <div>No Task Category yet...</div>
+		content = <div>No items yet...</div>
 	} else {
 		content = list.map(category => (
 			<Link href={`/${hrefStart}/${category.slug}`} key={category.id}>

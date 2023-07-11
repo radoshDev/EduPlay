@@ -1,4 +1,4 @@
-import NewTaskCategoryForm from "@/components/forms/NewTaskCategoryForm/NewTaskCategoryForm"
+import { NewTaskCategoryForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 

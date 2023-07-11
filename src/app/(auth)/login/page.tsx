@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import SocialAuth from "@/components/SocialAuth/SocialAuth"
-import LoginForm from "@/components/forms/LoginForm"
+import { LoginForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 import { getServerAuthSession } from "@/server/auth"

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { getServerAuthSession } from "@/server/auth"
-import NewCreatureCategoryForm from "@/components/forms/NewCreatureCategoryForm"
+import { NewCreatureCategoryForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 
