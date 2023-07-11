@@ -1,19 +1,21 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Button from "@/components/ui/Button"
+import {
+	Button,
+	Form,
+	InputField,
+	InputImageField,
+	TextAreaField,
+	Toast,
+} from "@/components/ui"
 import { api } from "@/utils/api"
-import Toast from "@/components/ui/Toast/Toast"
 import {
 	CreatureCategoryForm,
 	CreatureCategoryFormSchema,
 } from "@/schemas/CreatureSchema"
 import toBase64 from "@/helpers/toBase64"
 import { ImageFile } from "@/schemas/RootSchema"
-import InputField from "@/components/ui/InputField"
-import TextAreaField from "@/components/ui/TextAreaField"
-import InputImageField from "@/components/ui/InputImageField"
-import Form from "@/components/ui/Form/Form"
 
 const NewCreatureCategoryForm = () => {
 	const { data, error, mutate, isSuccess, isError, isLoading } =

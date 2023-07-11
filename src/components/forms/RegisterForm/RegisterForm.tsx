@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema, type RegisterCred } from "@/schemas/AuthSchema"
-import InputField from "@/components/ui/InputField"
-import Button from "@/components/ui/Button"
-import Toast from "@/components/ui/Toast/Toast"
+import { Button, InputField, Toast } from "@/components/ui"
 import { api } from "@/utils/api"
 
 const RegisterForm: FC = () => {

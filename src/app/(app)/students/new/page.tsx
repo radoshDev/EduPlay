@@ -1,6 +1,6 @@
 import NewStudentForm from "@/components/forms/NewStudentForm/NewStudentForm"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"
 
 export const metadata = {

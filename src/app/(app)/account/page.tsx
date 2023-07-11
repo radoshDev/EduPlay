@@ -1,7 +1,5 @@
 import PageLayout from "@/components/layouts/PageLayout"
-import Button from "@/components/ui/Button"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import ButtonLogout from "@/components/ui/buttons/ButtonLogout"
+import { Button, ButtonLogout, PageTitle } from "@/components/ui"
 import { getServerAuthSession } from "@/server/auth"
 
 const AccountPage = async () => {

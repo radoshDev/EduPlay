@@ -1,10 +1,8 @@
 import { BsPlusCircleFill } from "react-icons/bs"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
-import CategoryList from "@/components/ui/CategoryList/CategoryList"
 import { getServerAuthSession } from "@/server/auth"
 import { prisma } from "@/server/db"
+import { ButtonIcon, CategoryList, PageTitle } from "@/components/ui"
 
 export const metadata = {
 	title: "Creature | EduPlay",

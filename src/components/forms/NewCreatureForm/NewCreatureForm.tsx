@@ -1,12 +1,14 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Form from "@/components/ui/Form"
-import Button from "@/components/ui/Button"
-import InputField from "@/components/ui/InputField"
-import InputImageField from "@/components/ui/InputImageField"
-import TextAreaField from "@/components/ui/TextAreaField"
-import Toast from "@/components/ui/Toast"
+import {
+	Button,
+	Form,
+	InputField,
+	InputImageField,
+	TextAreaField,
+	Toast,
+} from "@/components/ui"
 import toBase64 from "@/helpers/toBase64"
 import { CreatureForm, CreatureFormSchema } from "@/schemas/CreatureSchema"
 import { api } from "@/utils/api"

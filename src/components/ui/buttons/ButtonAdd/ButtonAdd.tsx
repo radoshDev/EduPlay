@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { BsPlusCircleFill } from "react-icons/bs"
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
+import { ButtonIcon } from "@/components/ui"
 
 type Props = {
 	href?: string

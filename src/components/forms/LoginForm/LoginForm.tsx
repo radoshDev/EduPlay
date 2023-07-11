@@ -4,8 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Button from "@/components/ui/Button"
-import InputField from "@/components/ui/InputField"
+import { Button, InputField } from "@/components/ui"
 import { AuthSchema, type AuthUserCred } from "@/schemas/AuthSchema"
 
 const LoginForm: FC = () => {

@@ -1,8 +1,6 @@
-import ButtonAdd from "@/components/ui/buttons/ButtonAdd"
 import { BsFillGearFill } from "react-icons/bs"
+import { ButtonAdd, PageTitle, ButtonIcon } from "@/components/ui"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
 import StudentList from "@/components/students/StudentList"
 
 export const metadata = {

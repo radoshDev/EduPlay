@@ -1,9 +1,8 @@
 import NewTaskCategoryForm from "@/components/forms/NewTaskCategoryForm/NewTaskCategoryForm"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import { FC } from "react"
+import { PageTitle } from "@/components/ui"
 
-const NewTaskCategory: FC = () => {
+const NewTaskCategory = () => {
 	return (
 		<PageLayout
 			title={

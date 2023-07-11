@@ -1,6 +1,6 @@
 import CreatureInfo from "@/components/creatures/CreatureInfo/CreatureInfo"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"

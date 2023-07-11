@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { CreatureCategory } from "@prisma/client"
 import { prisma } from "@/server/db"
-import ImageCard from "../ui/ImageCard"
+import ImageCard from "../ui/ImageCard/ImageCard"
 import { ReactNode } from "react"
 
 type Props = {

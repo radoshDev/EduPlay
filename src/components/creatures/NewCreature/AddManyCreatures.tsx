@@ -1,9 +1,8 @@
 "use client"
 
-import ButtonIcon from "@/components/ui/buttons/ButtonIcon"
 import { AiFillFileAdd } from "react-icons/ai"
 import { FC, MouseEvent, useRef } from "react"
-import Button from "@/components/ui/Button"
+import { ButtonIcon, Button } from "@/components/ui"
 import { api } from "@/utils/api"
 import toBase64 from "@/helpers/toBase64"
 

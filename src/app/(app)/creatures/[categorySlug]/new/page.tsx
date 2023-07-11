@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { getServerAuthSession } from "@/server/auth"
 import AddManyCreatures from "@/components/creatures/NewCreature/AddManyCreatures"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import { PageTitle } from "@/components/ui"
 import NewCreatureForm from "@/components/forms/NewCreatureForm"
 import { PageProps } from "@/types"
 

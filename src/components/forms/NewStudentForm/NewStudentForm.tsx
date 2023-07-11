@@ -5,10 +5,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/utils/api"
 import { AddStudentInput, AddStudentSchema } from "@/schemas/StudentSchema"
-import InputField from "@/components/ui/InputField"
 import ImageSelector from "./ImageSelector/ImageSelector"
-import Button from "@/components/ui/Button"
-import Alert from "@/components/ui/Alert/Alert"
+import { Alert, Button, InputField } from "@/components/ui"
 
 type Props = {
 	creaturesImage: string[]

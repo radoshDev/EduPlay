@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react"
 import { BsBoxArrowInLeft } from "react-icons/bs"
-import ButtonIcon from "../buttons/ButtonIcon"
+import ButtonIcon from "../buttons/ButtonIcon/ButtonIcon"
 
 type Props = {
 	title: string

@@ -1,7 +1,7 @@
 "use client"
 
 import { FC } from "react"
-import Button from "../../ui/Button"
+import Button from "../../ui/buttons/Button/Button"
 import { signIn } from "next-auth/react"
 
 const GithubButton: FC = () => {

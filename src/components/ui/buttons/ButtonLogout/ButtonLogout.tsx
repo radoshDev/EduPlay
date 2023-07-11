@@ -1,7 +1,7 @@
 "use client"
 
 import { FC } from "react"
-import Button from "../Button"
+import Button from "../Button/Button"
 import { signOut } from "next-auth/react"
 
 const ButtonLogout: FC = () => {

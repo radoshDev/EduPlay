@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import SocialAuth from "@/components/SocialAuth"
 import RegisterForm from "@/components/forms/RegisterForm"
 import PageLayout from "@/components/layouts/PageLayout"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
+import { PageTitle } from "@/components/ui"
 import { getServerAuthSession } from "@/server/auth"
 import type { PageProps } from "@/types"
 

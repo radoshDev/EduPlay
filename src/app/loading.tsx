@@ -1,5 +1,5 @@
 import { FC } from "react"
-import PagePreloader from "@/components/ui/PagePreloader"
+import { PagePreloader } from "@/components/ui"
 
 const LoadingPage: FC = () => {
 	return <PagePreloader />

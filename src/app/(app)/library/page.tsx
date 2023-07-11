@@ -1,7 +1,5 @@
 import PageLayout from "@/components/layouts/PageLayout"
-import CategoryList from "@/components/ui/CategoryList"
-import PageTitle from "@/components/ui/PageTitle/PageTitle"
-import ButtonAdd from "@/components/ui/buttons/ButtonAdd"
+import { ButtonAdd, CategoryList, PageTitle } from "@/components/ui"
 import { getServerAuthSession } from "@/server/auth"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"

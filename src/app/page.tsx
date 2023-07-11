@@ -1,6 +1,6 @@
 import { getServerAuthSession } from "@/server/auth"
 import PageLayout from "@/components/layouts/PageLayout"
-import Button from "@/components/ui/Button"
+import { Button } from "@/components/ui"
 
 async function Home() {
 	const session = await getServerAuthSession()
