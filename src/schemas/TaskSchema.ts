@@ -29,6 +29,10 @@ export const TaskSchema = z.object({
 	subcategorySlug: z.string(),
 })
 
+export const TaskUpdateSchema = TaskSchema.extend({
+	id: z.string().optional(),
+})
+
 export type TaskCategoryForm = z.infer<typeof TaskCategoryFormSchema>
 export type TaskSubcategoryForm = z.infer<typeof TaskSubcategoryFormSchema>
 export type TaskForm = z.infer<typeof TaskSchema>

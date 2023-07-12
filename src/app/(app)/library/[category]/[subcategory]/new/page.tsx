@@ -1,4 +1,4 @@
-import { ImportForm, NewTaskForm } from "@/components/forms"
+import { ImportForm, TaskForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 import { IMPORT_TEMPLATE } from "@/constants"
@@ -20,7 +20,10 @@ const NewTaskPage = ({ params }: PageProps<"subcategory">) => {
 					}
 				/>
 			}>
-			<NewTaskForm subcategorySlug={params.subcategory} />
+			<TaskForm
+				action="addTask"
+				taskDefault={{ subcategorySlug: params.subcategory }}
+			/>
 		</PageLayout>
 	)
 }

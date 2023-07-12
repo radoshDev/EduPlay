@@ -21,7 +21,11 @@ const TaskList = ({ tasks, subcategorySlug }: Props) => {
 			</Link>
 		))
 	}
-	return <div className="flex w-full flex-1 flex-wrap gap-2">{content}</div>
+	return (
+		<div className="flex w-full flex-1 flex-wrap content-start gap-2">
+			{content}
+		</div>
+	)
 }
 
 export default TaskList

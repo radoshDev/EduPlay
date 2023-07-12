@@ -4,25 +4,29 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { TaskForm, TaskSchema } from "@/schemas/TaskSchema"
 import { api } from "@/utils/api"
+import { Task } from "@prisma/client"
+import { AtLeast } from "@/types"
 
 type Props = {
-	subcategorySlug: string
+	taskDefault: AtLeast<Task, "subcategorySlug">
+	action: Extract<keyof typeof api.library, "updateTask" | "addTask">
 }
 
-const NewTaskForm = ({ subcategorySlug }: Props) => {
+const TaskForm = ({ action, taskDefault }: Props) => {
 	const { data, error, isSuccess, isError, isLoading, mutate } =
-		api.library.addTask.useMutation()
+		api.library[action].useMutation()
 	const {
 		handleSubmit,
 		register,
 		formState: { errors },
 	} = useForm<TaskForm>({
 		resolver: zodResolver(TaskSchema),
-		defaultValues: { subcategorySlug },
+		defaultValues: { ...taskDefault, result: taskDefault.result || undefined },
 	})
 
 	const onSubmit = handleSubmit(data => {
-		mutate(data)
+		// @ts-ignore
+		mutate({ ...data, id: taskDefault.id })
 	})
 	return (
 		<>
@@ -49,11 +53,11 @@ const NewTaskForm = ({ subcategorySlug }: Props) => {
 					disabled
 				/>
 				<Button variant="success" type="submit" isLoading={isLoading}>
-					Create
+					{action === "updateTask" ? "Update" : "Result"}
 				</Button>
 			</Form>
 		</>
 	)
 }
 
-export default NewTaskForm
+export default TaskForm

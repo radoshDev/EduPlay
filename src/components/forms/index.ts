@@ -6,4 +6,4 @@ export { default as NewTaskCategoryForm } from "./NewTaskCategoryForm/NewTaskCat
 export { default as NewTaskSubcategoryForm } from "./NewTaskSubcategoryForm/NewTaskSubcategoryForm"
 export { default as RegisterForm } from "./RegisterForm/RegisterForm"
 export { default as ImportForm } from "./ImportForm/ImportForm"
-export { default as NewTaskForm } from "./NewTaskForm/NewTaskForm"
+export { default as TaskForm } from "./TaskForm/TaskForm"

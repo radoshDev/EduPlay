@@ -3,6 +3,8 @@ export type PageProps<P extends string = string, SP extends string = string> = {
 	searchParams?: Record<SP, string>
 }
 
+export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>
+
 export type MessageResponse = {
 	message: string
 }
