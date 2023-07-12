@@ -55,7 +55,7 @@ model TaskSubCategory {
 
 model Task {
   id              String          @id @default(cuid())
-  value           String
+  value           String          @unique
   result          String?
   subcategory     TaskSubCategory @relation(fields: [subcategorySlug], references: [slug])
   subcategorySlug String
