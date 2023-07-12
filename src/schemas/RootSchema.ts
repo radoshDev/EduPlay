@@ -1,5 +1,7 @@
 import { RefinementCtx, z } from "zod"
 
+export const ImportSchema = z.object({ base64File: z.string() })
+
 export const ImageFileSchema = z
 	.object({
 		name: z

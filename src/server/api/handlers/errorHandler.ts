@@ -5,6 +5,6 @@ export const errorHandler = (_error: unknown): void => {
 
 	const error = _error as TRPCError
 	const code = error.code || "BAD_REQUEST"
-	const message = error.message
+	const message = error.message.slice(0, 50)
 	throw new TRPCError({ code, message })
 }

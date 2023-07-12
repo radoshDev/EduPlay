@@ -12,7 +12,7 @@ export const addTaskCategoryHandler = adminProcedure
 		try {
 			const { title, imageFile, imageUrl } = input
 			const slug = slugify(title.toLowerCase())
-			const existCategory = await prisma.creatureCategory.findUnique({
+			const existCategory = await prisma.taskCategory.findUnique({
 				where: { slug },
 			})
 
@@ -21,7 +21,7 @@ export const addTaskCategoryHandler = adminProcedure
 			if (imageFile) {
 				media = await uploadImageToStorage({
 					base64: imageFile.base64,
-					bucket: "creatures",
+					bucket: "tasks",
 					folder: slug,
 					fileName: imageFile.name,
 				})

@@ -11,7 +11,7 @@ export type ErrorMessageResponse = MessageResponse & {
 	error: string
 }
 
-export type StorageBucket = "creatures"
+export type StorageBucket = "creatures" | "tasks"
 
 export type Category = {
 	id: string

@@ -36,7 +36,5 @@ export const CreatureInputSchema = CreatureSchema.extend({
 	categorySlug: z.string(),
 }).refine(data => data.imageUrl || data.imageFile, "Either file or image URL")
 
-export const CreaturesAddManySchema = z.object({ base64File: z.string() })
-
 export type CreatureCategoryForm = z.infer<typeof CreatureCategoryFormSchema>
 export type CreatureForm = z.infer<typeof CreatureFormSchema>

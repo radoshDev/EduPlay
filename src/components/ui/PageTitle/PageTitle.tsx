@@ -12,9 +12,10 @@ type Props = {
 
 const PageTitle: FC<Props> = props => {
 	const { title, navAction, afterAction, backButton, href } = props
+	const isBackButton = backButton && href
 	return (
 		<div className="mb-3 flex items-center gap-3">
-			{backButton && href && (
+			{isBackButton && (
 				<ButtonIcon
 					icon={<BsBoxArrowInLeft size={24} />}
 					color="primary"

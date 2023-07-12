@@ -44,21 +44,21 @@ model TaskCategory {
 }
 
 model TaskSubCategory {
-  id               String       @id @default(cuid())
-  title            String
-  imageUrl         String
-  slug             String       @unique
-  parentCategory   TaskCategory @relation(fields: [parentCategoryId], references: [id])
-  parentCategoryId String
-  tasks            Task[]
+  id             String       @id @default(cuid())
+  title          String
+  imageUrl       String
+  slug           String       @unique
+  parentCategory TaskCategory @relation(fields: [parentSlug], references: [slug])
+  parentSlug     String
+  tasks          Task[]
 }
 
 model Task {
-  id            String          @id @default(cuid())
-  value         String
-  result        String
-  subCategory   TaskSubCategory @relation(fields: [subCategoryId], references: [id])
-  subCategoryId String
+  id              String          @id @default(cuid())
+  value           String
+  result          String?
+  subcategory     TaskSubCategory @relation(fields: [subcategorySlug], references: [slug])
+  subcategorySlug String
 }
 
 // Necessary for Next auth

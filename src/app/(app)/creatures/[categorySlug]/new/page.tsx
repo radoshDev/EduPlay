@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation"
 import { getServerAuthSession } from "@/server/auth"
-import AddManyCreatures from "@/components/creatures/NewCreature/AddManyCreatures"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
-import { NewCreatureForm } from "@/components/forms"
+import { ImportForm, NewCreatureForm } from "@/components/forms"
 import { PageProps } from "@/types"
+import { IMPORT_TEMPLATE } from "@/constants"
 
 const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
 	const session = await getServerAuthSession()
@@ -16,8 +16,13 @@ const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
 				<PageTitle
 					title="New Creature"
 					backButton
-					href={`/creatures/${params.categorySlug}`}
-					afterAction={<AddManyCreatures />}
+					href="."
+					afterAction={
+						<ImportForm
+							action="importCreatures"
+							templateLink={IMPORT_TEMPLATE.creatures}
+						/>
+					}
 				/>
 			}>
 			<NewCreatureForm categorySlug={params.categorySlug} />

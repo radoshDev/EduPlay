@@ -1,19 +1,26 @@
 "use client"
-
 import { AiFillFileAdd } from "react-icons/ai"
 import { FC, MouseEvent, useRef } from "react"
 import { ButtonIcon, Button } from "@/components/ui"
-import { api } from "@/utils/api"
 import toBase64 from "@/helpers/toBase64"
+import { api } from "@/utils/api"
 
-const AddManyCreatures: FC = () => {
+type Props = {
+	action: Exclude<keyof typeof api.import, "getQueryKey">
+	templateLink: string
+}
+
+const ImportForm: FC<Props> = props => {
+	const { templateLink, action } = props
 	const { data, error, isSuccess, isError, mutate, isLoading } =
-		api.creature.addManyCreatures.useMutation()
+		api.import[action].useMutation()
 	const fileRef = useRef<HTMLInputElement | null>(null)
+
 	function handleShowModal() {
 		// @ts-ignore
 		window.my_modal_2.showModal()
 	}
+
 	async function handleImportFile(e: MouseEvent) {
 		e.preventDefault()
 		const file = fileRef.current?.files?.[0]
@@ -24,6 +31,7 @@ const AddManyCreatures: FC = () => {
 		const base64File = await toBase64(file)
 		mutate({ base64File })
 	}
+
 	return (
 		<>
 			<ButtonIcon
@@ -32,13 +40,10 @@ const AddManyCreatures: FC = () => {
 			/>
 			<dialog id="my_modal_2" className="modal backdrop:backdrop-blur-sm">
 				<form method="dialog" className="modal-box text-center">
-					<h3 className="text-lg font-bold">Multiple adding creature</h3>
+					<h3 className="text-lg font-bold">Multiple adding</h3>
 					<p className="py-4">
 						Add .csv file with comma separated fields.{" "}
-						<a
-							className="text-primary"
-							href="https://docs.google.com/spreadsheets/d/1jZq32Y6dvlsSF0bBv0gw0WBmzsrG8Umge41aKWS49ag/edit#gid=1194213657"
-							target="_blank">
+						<a className="text-primary" href={templateLink} target="_blank">
 							Template
 						</a>
 					</p>
@@ -72,4 +77,4 @@ const AddManyCreatures: FC = () => {
 	)
 }
 
-export default AddManyCreatures
+export default ImportForm
