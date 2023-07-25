@@ -1,5 +1,6 @@
 import { BsFillGearFill } from "react-icons/bs"
-import { ButtonAdd, PageTitle, ButtonIcon } from "@/components/ui"
+import { PageTitle } from "@/components/ui"
+import { ButtonAdd, ButtonIcon } from "@/components/ui/buttons"
 import PageLayout from "@/components/layouts/PageLayout"
 import StudentList from "@/components/students/StudentList"
 

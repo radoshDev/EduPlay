@@ -1,11 +1,6 @@
 "use client"
-import {
-	Button,
-	Form,
-	InputField,
-	InputImageField,
-	Toast,
-} from "@/components/ui"
+import { Form, InputField, InputImageField, Toast } from "@/components/ui"
+import { Button } from "@/components/ui/buttons"
 import toBase64 from "@/helpers/toBase64"
 import { ImageFile } from "@/schemas/RootSchema"
 import {

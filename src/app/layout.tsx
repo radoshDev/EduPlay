@@ -1,6 +1,6 @@
 import "@/styles/globals.css"
 import { Inter } from "next/font/google"
-import TRPCProvider from "@/components/Providers/TRPCProvider"
+import RootProvider from "@/components/Providers/RootProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -37,7 +37,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 				<meta name="theme-color" content="#ffffff" />
 			</head>
 			<body className={inter.className}>
-				<TRPCProvider>{children}</TRPCProvider>
+				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>
 	)

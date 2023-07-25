@@ -2,13 +2,13 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
-	Button,
 	Form,
 	InputField,
 	InputImageField,
 	TextAreaField,
 	Toast,
 } from "@/components/ui"
+import { Button } from "@/components/ui/buttons"
 import { api } from "@/utils/api"
 import {
 	CreatureCategoryForm,

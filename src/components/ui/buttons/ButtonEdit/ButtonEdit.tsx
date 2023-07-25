@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { BiEdit } from "react-icons/bi"
-import { ButtonIcon } from "@/components/ui"
+import { ButtonIcon } from "@/components/ui/buttons"
 
 type Props = {
 	href?: string

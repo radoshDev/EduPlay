@@ -3,16 +3,11 @@ import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { TaskCategoryForm, TaskCategoryFormSchema } from "@/schemas/TaskSchema"
-import {
-	Button,
-	Form,
-	InputField,
-	InputImageField,
-	Toast,
-} from "@/components/ui"
+import { Form, InputField, InputImageField, Toast } from "@/components/ui"
 import { api } from "@/utils/api"
 import { ImageFile } from "@/schemas/RootSchema"
 import toBase64 from "@/helpers/toBase64"
+import { Button } from "@/components/ui/buttons"
 
 const NewTaskCategoryForm: FC = () => {
 	const { isError, error, isLoading, isSuccess, mutate, data } =

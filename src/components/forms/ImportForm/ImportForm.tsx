@@ -1,7 +1,7 @@
 "use client"
 import { AiFillFileAdd } from "react-icons/ai"
 import { FC, MouseEvent, useRef } from "react"
-import { ButtonIcon, Button } from "@/components/ui"
+import { ButtonIcon, Button } from "@/components/ui/buttons"
 import toBase64 from "@/helpers/toBase64"
 import { api } from "@/utils/api"
 

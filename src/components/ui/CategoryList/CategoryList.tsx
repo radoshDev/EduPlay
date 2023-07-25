@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { CategoryCard } from "@/components/ui"
 import { Category } from "@/types"
 import { ReactNode } from "react"
@@ -6,17 +5,22 @@ import { ReactNode } from "react"
 type Props = {
 	list: Category[]
 	hrefStart: string
+	studentId?: string
 }
 
-const CategoryList = ({ list, hrefStart }: Props) => {
+const CategoryList = ({ list, hrefStart, studentId }: Props) => {
+	const studentQuery = studentId ? `?studentId=${studentId}` : ""
 	let content: ReactNode
 	if (list.length === 0) {
 		content = <div>No items yet...</div>
 	} else {
 		content = list.map(category => (
-			<Link href={`/${hrefStart}/${category.slug}`} key={category.id}>
-				<CategoryCard title={category.title} imageSrc={category.imageUrl} />
-			</Link>
+			<CategoryCard
+				href={`/${hrefStart}/${category.slug}${studentQuery}`}
+				title={category.title}
+				imageSrc={category.imageUrl}
+				key={category.id}
+			/>
 		))
 	}
 	return (

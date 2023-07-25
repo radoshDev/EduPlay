@@ -2,7 +2,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
-	Button,
 	Form,
 	InputField,
 	InputImageField,
@@ -13,6 +12,7 @@ import toBase64 from "@/helpers/toBase64"
 import { CreatureForm, CreatureFormSchema } from "@/schemas/CreatureSchema"
 import { api } from "@/utils/api"
 import { ImageFile } from "@/schemas/RootSchema"
+import { Button } from "@/components/ui/buttons"
 
 type Props = {
 	categorySlug: string

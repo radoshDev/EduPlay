@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
-import { Button, ButtonAdd, PageTitle } from "@/components/ui"
+import { PageTitle } from "@/components/ui"
 import CreaturesList from "@/components/creatures/CreatureList"
 import PageLayout from "@/components/layouts/PageLayout"
 import { getServerAuthSession } from "@/server/auth"
+import { Button, ButtonAdd } from "@/components/ui/buttons"
 
 const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	const creaturesCategory = await prisma.creatureCategory.findUnique({

@@ -4,8 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, InputField } from "@/components/ui"
+import { InputField } from "@/components/ui"
 import { AuthSchema, type AuthUserCred } from "@/schemas/AuthSchema"
+import { Button } from "@/components/ui/buttons"
 
 const LoginForm: FC = () => {
 	const [isLoading, setIsLoading] = useState(false)

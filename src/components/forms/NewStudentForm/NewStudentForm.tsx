@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/utils/api"
 import { AddStudentInput, AddStudentSchema } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
-import { Alert, Button, InputField } from "@/components/ui"
+import { Alert, InputField } from "@/components/ui"
+import { Button } from "@/components/ui/buttons"
 
 type Props = {
 	creaturesImage: string[]

@@ -1,11 +1,16 @@
 import PageLayout from "@/components/layouts/PageLayout"
-import { ButtonAdd, CategoryList, PageTitle } from "@/components/ui"
+import { CategoryList, PageTitle } from "@/components/ui"
+import { ButtonAdd } from "@/components/ui/buttons"
 import { getServerAuthSession } from "@/server/auth"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"
 
-const TaskCategoryPage = async ({ params }: PageProps<"category">) => {
+const TaskCategoryPage = async ({
+	params,
+	searchParams,
+}: PageProps<"category", "studentId">) => {
+	const studentId = searchParams?.studentId
 	const session = await getServerAuthSession()
 	const isAdmin = session?.user.role === "admin"
 	const categorySlug = params.category
@@ -24,6 +29,7 @@ const TaskCategoryPage = async ({ params }: PageProps<"category">) => {
 				<CategoryList
 					list={taskSubcategories}
 					hrefStart={`library/${categorySlug}`}
+					studentId={studentId}
 				/>
 				{isAdmin && <ButtonAdd href={`${categorySlug}/new`} />}
 			</div>

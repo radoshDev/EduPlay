@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation"
 import PageLayout from "@/components/layouts/PageLayout"
-import { ButtonEdit, PageTitle } from "@/components/ui"
+import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
+import { ButtonEdit } from "@/components/ui/buttons"
 
 type Props = PageProps<"taskId" | "category">
 
