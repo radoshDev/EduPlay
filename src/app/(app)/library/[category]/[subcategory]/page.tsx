@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation"
-import { FaRocket } from "react-icons/fa"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
-import { ButtonAdd, ButtonIcon } from "@/components/ui/buttons"
+import { ButtonAdd, ButtonEducation } from "@/components/ui/buttons"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 import { getServerAuthSession } from "@/server/auth"
@@ -26,14 +25,6 @@ const TaskSubcategoryPage = async ({ params, searchParams }: Props) => {
 		orderBy: { value: "asc" },
 	})
 
-	const educationButton = studentId ? (
-		<ButtonIcon
-			icon={<FaRocket size={24} />}
-			color="primary"
-			href={`/education/${studentId}/${subcategory}`}
-		/>
-	) : undefined
-
 	return (
 		<PageLayout
 			title={
@@ -41,7 +32,9 @@ const TaskSubcategoryPage = async ({ params, searchParams }: Props) => {
 					title={taskSubcategory.title}
 					backButton
 					href={`.${searchQuery}`}
-					afterAction={educationButton}
+					afterAction={
+						<ButtonEducation studentId={studentId} type={subcategory} />
+					}
 				/>
 			}>
 			<div className="flex w-full max-w-md flex-col items-center">

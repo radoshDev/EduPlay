@@ -1,6 +1,6 @@
 import PageLayout from "@/components/layouts/PageLayout"
 import { CategoryList, PageTitle } from "@/components/ui"
-import { ButtonAdd } from "@/components/ui/buttons"
+import { ButtonAdd, ButtonEducation } from "@/components/ui/buttons"
 import { getServerAuthSession } from "@/server/auth"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
@@ -24,7 +24,16 @@ const TaskCategoryPage = async ({
 
 	return (
 		<PageLayout
-			title={<PageTitle title={taskCategory.title} backButton href="." />}>
+			title={
+				<PageTitle
+					title={taskCategory.title}
+					backButton
+					href="."
+					afterAction={
+						<ButtonEducation studentId={studentId} type={categorySlug} />
+					}
+				/>
+			}>
 			<div className="flex w-full max-w-md flex-col items-center">
 				<CategoryList
 					list={taskSubcategories}
