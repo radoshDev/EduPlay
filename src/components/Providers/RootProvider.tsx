@@ -1,7 +1,8 @@
 "use client"
 import { FC, ReactNode } from "react"
-import { RecoilRoot } from "recoil"
+import { Provider } from "react-redux"
 import TRPCProvider from "./TRPCProvider"
+import { store } from "@/redux/store"
 
 type Props = {
 	children: ReactNode
@@ -9,9 +10,9 @@ type Props = {
 
 const RootProvider: FC<Props> = ({ children }) => {
 	return (
-		<RecoilRoot>
+		<Provider store={store}>
 			<TRPCProvider>{children}</TRPCProvider>
-		</RecoilRoot>
+		</Provider>
 	)
 }
 

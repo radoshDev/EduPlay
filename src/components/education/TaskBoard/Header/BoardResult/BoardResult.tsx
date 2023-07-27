@@ -1,10 +1,13 @@
 import { CoinIcon } from "@/components/ui/icons"
-import { FC } from "react"
+import { selectCurrentTaskRound } from "@/redux/features/task/selector"
+import { useAppSelector } from "@/redux/hooks"
 
-const BoardResult: FC = () => {
+const BoardResult = () => {
+	const currentTaskRound = useAppSelector(selectCurrentTaskRound)
+	if (!currentTaskRound) return null
 	return (
 		<div className="w-20 cursor-pointer">
-			<CoinIcon count={0} />
+			<CoinIcon count={currentTaskRound.earned} />
 		</div>
 	)
 }

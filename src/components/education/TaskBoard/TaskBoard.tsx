@@ -3,20 +3,26 @@
 import Header from "./Header/Header"
 import Content from "./Content/Content"
 import Navigation from "./Navigation/Navigation"
-import { Task } from "@prisma/client"
+import { Task, Creature } from "@prisma/client"
 import { useEffect } from "react"
-import { useSetRecoilState } from "recoil"
-import { tasksState } from "@/states/taskState"
+import { useAppDispatch } from "@/redux/hooks"
+import { initiateTask } from "@/redux/features/task/taskSlice"
 
 type Props = {
 	tasks: Task[]
+	creatures: Creature[]
+	roundLength: number
+	taskType: string
+	studentId: string
 }
 
-const TaskBoard = ({ tasks }: Props) => {
-	const setTasks = useSetRecoilState(tasksState)
+const TaskBoard = (props: Props) => {
+	const dispatch = useAppDispatch()
+
 	useEffect(() => {
-		setTasks(tasks)
-	}, [tasks, setTasks])
+		dispatch(initiateTask(props))
+	}, [dispatch, props])
+
 	return (
 		<div className="mx-auto flex h-screen max-h-screen max-w-3xl flex-col p-6">
 			<Header />

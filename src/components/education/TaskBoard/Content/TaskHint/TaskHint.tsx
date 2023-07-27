@@ -1,8 +1,15 @@
 import { ButtonIcon } from "@/components/ui/buttons"
+import { selectCurrentTask } from "@/redux/features/task/selector"
+import { useAppSelector } from "@/redux/hooks"
 import { BsWikipedia, BsFillImageFill } from "react-icons/bs"
 
 const TaskHint = () => {
-	const word = "сон"
+	const currentTask = useAppSelector(selectCurrentTask)
+
+	if (!currentTask) return null
+
+	const word = currentTask.value
+
 	return (
 		<div className="flex justify-center gap-3">
 			<ButtonIcon

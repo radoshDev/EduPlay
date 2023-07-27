@@ -1,22 +1,18 @@
 import { calcFontSize } from "@/helpers/calcFontSize"
-import { tasksState } from "@/states/taskState"
-import { useRecoilValue } from "recoil"
+import { selectCurrentTask } from "@/redux/features/task/selector"
+import { useAppSelector } from "@/redux/hooks"
 
 const Task = () => {
-	const tasks = useRecoilValue(tasksState)
+	const currentTask = useAppSelector(selectCurrentTask)
+
+	if (!currentTask) return null
+
 	return (
-		<>
-			<div className="text-center" style={{ fontSize: calcFontSize(6) }}>
-				Нікіта
-			</div>
-			<pre>
-				{JSON.stringify(
-					tasks.map(t => t.value),
-					null,
-					2
-				)}
-			</pre>
-		</>
+		<div
+			className="text-center"
+			style={{ fontSize: calcFontSize(currentTask.value.length) }}>
+			{currentTask.value}
+		</div>
 	)
 }
 
