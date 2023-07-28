@@ -2,6 +2,10 @@ await import("./src/env.mjs")
 
 /** @type {import('next').NextConfig} */
 
+import nextPwa from "next-pwa"
+
+const withPWA = nextPwa({ dest: "public" })
+
 const config = {
 	images: {
 		remotePatterns: [
@@ -28,4 +32,4 @@ const config = {
 		],
 	},
 }
-export default config
+export default withPWA(config)
