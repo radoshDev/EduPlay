@@ -4,7 +4,10 @@ await import("./src/env.mjs")
 
 import nextPwa from "next-pwa"
 
-const withPWA = nextPwa({ dest: "public" })
+const withPWA = nextPwa({
+	dest: "public",
+	disable: process.env.NODE_ENV === "development",
+})
 
 const config = {
 	images: {
