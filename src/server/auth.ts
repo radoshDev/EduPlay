@@ -8,7 +8,6 @@ import {
 import { AppProviders } from "next-auth/providers"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
-import { env } from "@/env.mjs"
 import { User as PUser } from "@prisma/client"
 
 declare module "next-auth" {
@@ -57,8 +56,8 @@ const credentialsProvider = CredentialsProvider({
 	},
 })
 const githubProvider = GithubProvider({
-	clientId: env.GITHUB_CLIENT_ID,
-	clientSecret: env.GITHUB_CLIENT_SECRET,
+	clientId: process.env.GITHUB_CLIENT_ID!,
+	clientSecret: process.env.GITHUB_CLIENT_SECRET!,
 })
 
 const providers: AppProviders = [credentialsProvider, githubProvider]
