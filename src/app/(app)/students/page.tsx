@@ -25,7 +25,7 @@ const StudentsPage = () => {
 			<div className="flex w-full max-w-md flex-col">
 				<StudentList />
 				<div className="text-center">
-					<ButtonAdd href="/students/new" />
+					<ButtonAdd href="/students/add" />
 				</div>
 			</div>
 		</PageLayout>

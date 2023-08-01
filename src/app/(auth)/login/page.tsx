@@ -14,8 +14,8 @@ const LoginPage = async ({
 
 	if (session) redirect("/students")
 
-	const sParams = new URLSearchParams(searchParams).toString()
-	const registerHref = sParams ? `/register?${sParams}` : "/register"
+	const cbUrl = new URLSearchParams(searchParams).toString()
+	const registerHref = cbUrl ? `/register?${cbUrl}` : "/register"
 
 	return (
 		<PageLayout title={<PageTitle title="Login" />}>

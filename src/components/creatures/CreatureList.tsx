@@ -26,7 +26,7 @@ const CreaturesList = async ({ categorySlug, categoryTitle }: Props) => {
 	}
 
 	return (
-		<div className="mb-6 flex flex-1 flex-wrap content-start items-start justify-center gap-3 overflow-auto">
+		<div className="mb-6 mt-3 flex flex-1 flex-wrap content-start items-start justify-center gap-3 overflow-auto">
 			{content}
 		</div>
 	)

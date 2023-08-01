@@ -30,6 +30,15 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 				/>
 			}>
 			<div className="flex flex-1 flex-col items-center">
+				{creaturesCategory.sourceLink && (
+					<Button
+						variant="warning"
+						size="sm"
+						href={creaturesCategory.sourceLink}
+						target="_blank">
+						Source
+					</Button>
+				)}
 				<CreaturesList
 					categorySlug={creaturesCategory.slug}
 					categoryTitle={creaturesCategory.title}

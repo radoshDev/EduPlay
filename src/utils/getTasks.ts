@@ -12,6 +12,10 @@ export const getTasks = async (type: string) => {
 				where: { subcategory: { parentSlug: "reading" } },
 			})
 		default:
-			return prisma.task.findMany({ where: { subcategorySlug: type } })
+			return prisma.task.findMany({
+				where: {
+					subcategorySlug: type,
+				},
+			})
 	}
 }

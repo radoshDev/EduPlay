@@ -1,29 +1,10 @@
 import { prisma } from "@/server/db"
 import { compare } from "bcryptjs"
-import {
-	getServerSession,
-	type DefaultSession,
-	type NextAuthOptions,
-} from "next-auth"
+import { getServerSession, type NextAuthOptions } from "next-auth"
 import { AppProviders } from "next-auth/providers"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
-import { User as PUser } from "@prisma/client"
 
-declare module "next-auth" {
-	// eslint-disable-next-line no-unused-vars
-	interface Session extends DefaultSession {
-		user: {
-			id: string
-			role: PUser["role"]
-		} & DefaultSession["user"]
-	}
-	// eslint-disable-next-line no-unused-vars
-	interface User {
-		// ...other properties
-		role: PUser["role"]
-	}
-}
 const credentialsProvider = CredentialsProvider({
 	name: "Credentials",
 	credentials: {
