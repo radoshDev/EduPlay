@@ -1,16 +1,18 @@
 import { FC } from "react"
 import Link from "next/link"
-import { Student } from "@prisma/client"
 import { Avatar } from "@/components/ui"
-import { Size } from "@/types/Styles"
+import { Size, Variant } from "@/types/Styles"
 
 type Props = {
-	student: Student
+	title: string
+	imageSrc: string
 	size: Size
-	href: string
+	variant?: Variant
+	href?: string
 }
 
-const StudentAvatar: FC<Props> = ({ student, size, href }) => {
+const StudentAvatar: FC<Props> = props => {
+	const { title, imageSrc, size, href, variant } = props
 	let avatarSize: number
 	let textSize: string
 
@@ -35,18 +37,25 @@ const StudentAvatar: FC<Props> = ({ student, size, href }) => {
 			avatarSize = 80
 			textSize = "text-base"
 	}
-
-	return (
-		<Link href={href} className="text-center">
+	const content = (
+		<>
 			<Avatar
-				alt={student.name}
-				imageSrc={student.avatar}
+				alt={title}
+				imageSrc={imageSrc}
 				size={avatarSize}
-				variant="warning"
+				variant={variant || "warning"}
 			/>
-			<div className={`font-bold ${textSize}`}>{student.name}</div>
-		</Link>
+			<div className={`font-bold ${textSize}`}>{title}</div>
+		</>
 	)
+	if (href) {
+		return (
+			<Link href={href} className="text-center">
+				{content}
+			</Link>
+		)
+	}
+	return <div className="text-center">{content}</div>
 }
 
 export default StudentAvatar

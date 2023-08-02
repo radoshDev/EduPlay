@@ -12,10 +12,10 @@ export default {
 	safelist: [
 		{
 			pattern:
-				/(alert|btn|text|ring)-(primary|secondary|neutral|error|success|warning)/,
+				/(alert|btn|text|ring|badge)-(primary|secondary|neutral|error|success|warning)/,
 		},
 		{
-			pattern: /btn-(lg|sm|xs)/,
+			pattern: /(btn|badge)-(lg|sm|xs)/,
 		},
 		"w-[40px]",
 		"w-[60px]",

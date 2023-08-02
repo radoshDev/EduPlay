@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { BiEdit } from "react-icons/bi"
 import { ButtonIcon } from "@/components/ui/buttons"
 
@@ -8,7 +7,7 @@ type Props = {
 	className?: string
 }
 
-const ButtonEdit: FC<Props> = ({ href, onClick, className }) => {
+const ButtonEdit = ({ href, onClick, className }: Props) => {
 	return (
 		<ButtonIcon
 			className={className}

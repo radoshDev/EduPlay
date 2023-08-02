@@ -1,7 +1,7 @@
-import { FC } from "react"
+import { PagePreloader } from "@/components/ui/preloader"
 
-const StudentInfoLoading: FC = () => {
-	return <div>Loading Student info...</div>
+const StudentInfoLoading = () => {
+	return <PagePreloader />
 }
 
 export default StudentInfoLoading

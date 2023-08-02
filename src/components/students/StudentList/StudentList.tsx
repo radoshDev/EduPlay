@@ -1,5 +1,5 @@
-import StudentAvatar from "../StudentAvatar"
 import { getStudentsServer } from "@/server/api/handlers/student/getStudentsHandler"
+import StudentAvatar from "../StudentAvatar/StudentAvatar"
 
 const StudentList = async () => {
 	const students = await getStudentsServer()
@@ -8,7 +8,8 @@ const StudentList = async () => {
 			{students.map(student => (
 				<StudentAvatar
 					href={`/education/${student.id}`}
-					student={student}
+					title={student.name}
+					imageSrc={student.avatar}
 					size="md"
 					key={student.id}
 				/>

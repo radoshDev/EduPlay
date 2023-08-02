@@ -1,5 +1,6 @@
 export { default as Alert } from "./Alert/Alert"
 export { default as Avatar } from "./Avatar/Avatar"
+export { default as Badge } from "./Badge/Badge"
 export { default as CategoryCard } from "./CategoryCard/CategoryCard"
 export { default as CategoryList } from "./CategoryList/CategoryList"
 export { default as Form } from "./Form/Form"

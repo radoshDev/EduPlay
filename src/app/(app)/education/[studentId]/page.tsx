@@ -1,10 +1,10 @@
 import PageLayout from "@/components/layouts/PageLayout"
-import StudentAvatar from "@/components/students/StudentAvatar"
 import { PageTitle } from "@/components/ui"
 import { getOneStudentServer } from "@/server/api/handlers/student/getOneStudentHandler"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"
 import { TaskList } from "@/components/education"
+import { StudentAvatar } from "@/components/students"
 
 const StudentPage = async ({ params }: PageProps<"studentId">) => {
 	const student = await getOneStudentServer(params.studentId)
@@ -18,7 +18,8 @@ const StudentPage = async ({ params }: PageProps<"studentId">) => {
 					href="/students"
 					afterAction={
 						<StudentAvatar
-							student={student}
+							title={student.name}
+							imageSrc={student.avatar}
 							size="xs"
 							href={`/students/${params.studentId}`}
 						/>
