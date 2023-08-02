@@ -5,7 +5,7 @@ import { PageTitle } from "@/components/ui"
 import CreaturesList from "@/components/creatures/CreatureList"
 import PageLayout from "@/components/layouts/PageLayout"
 import { getServerAuthSession } from "@/server/auth"
-import { Button, ButtonAdd } from "@/components/ui/buttons"
+import { Button, ButtonAdd, ButtonEducation } from "@/components/ui/buttons"
 
 const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 	const creaturesCategory = await prisma.creatureCategory.findUnique({
@@ -22,11 +22,7 @@ const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
 					title={creaturesCategory.title}
 					backButton
 					href="/creatures"
-					afterAction={
-						<Button href="/" variant="primary" size="sm">
-							До занять
-						</Button>
-					}
+					afterAction={<ButtonEducation />}
 				/>
 			}>
 			<div className="flex flex-1 flex-col items-center">

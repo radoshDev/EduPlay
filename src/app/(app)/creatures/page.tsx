@@ -3,10 +3,10 @@ import PageLayout from "@/components/layouts/PageLayout"
 import { getServerAuthSession } from "@/server/auth"
 import { prisma } from "@/server/db"
 import { CategoryList, PageTitle } from "@/components/ui"
-import { ButtonIcon } from "@/components/ui/buttons"
+import { ButtonEducation, ButtonIcon } from "@/components/ui/buttons"
 
 export const metadata = {
-	title: "Creature | EduPlay",
+	title: "Creatures | EduPlay",
 	description:
 		"EduPlay: Learn & Earn Coins makes education exciting with fun-filled lessons on alphabets, words, and math. Kids enjoy the engaging, interactive tasks and earn coins for their achievements, turning learning into an adventurous game!",
 }
@@ -15,9 +15,17 @@ const CreaturesPage = async () => {
 	const session = await getServerAuthSession()
 	const creatureCategories = await prisma.creatureCategory.findMany()
 	const isAdmin = session?.user.role === "admin"
+
 	return (
 		<PageLayout
-			title={<PageTitle title="Creatures" backButton href="/account" />}>
+			title={
+				<PageTitle
+					title="Creatures"
+					backButton
+					href="/account"
+					afterAction={<ButtonEducation />}
+				/>
+			}>
 			<div className="flex w-full max-w-md flex-col">
 				<CategoryList list={creatureCategories} hrefStart="creatures" />
 				{isAdmin && (

@@ -7,6 +7,7 @@ import { Task, Creature } from "@prisma/client"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/redux/hooks"
 import { initiateTask } from "@/redux/features/task/taskSlice"
+import ResetModal from "./ResetModal/ResetModal"
 
 type Props = {
 	tasks: Task[]
@@ -28,6 +29,7 @@ const TaskBoard = (props: Props) => {
 			<Header />
 			<Content />
 			<Navigation />
+			<ResetModal />
 		</div>
 	)
 }

@@ -27,7 +27,7 @@ const TaskList = ({ tasks, subcategorySlug, isLink }: Props) => {
 	}
 
 	return (
-		<div className="flex w-full flex-1 flex-wrap content-start gap-2">
+		<div className="mb-4 flex w-full flex-1 flex-wrap content-start gap-2 overflow-auto">
 			{content}
 		</div>
 	)

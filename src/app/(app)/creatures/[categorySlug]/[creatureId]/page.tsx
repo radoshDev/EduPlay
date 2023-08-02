@@ -14,7 +14,7 @@ const CreaturePage = async ({ params, searchParams }: Props) => {
 
 	if (!creature) notFound()
 
-	const backHref = searchParams?.cb || `/creatures/${params.categorySlug}`
+	const backHref = searchParams?.cb || "."
 
 	return (
 		<PageLayout

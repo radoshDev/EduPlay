@@ -5,6 +5,7 @@ import { getCurrentTask } from "./utils"
 import { getRandomIndex } from "@/helpers/getRandomIndex"
 
 type TaskRound = {
+	inProgress: boolean
 	index: number
 	earned: number
 	roundLength: number
@@ -45,8 +46,11 @@ export const taskSlice = createSlice({
 				state.studentProgress[studentId] = {}
 			}
 
-			if (!state.studentProgress[studentId][taskType]) {
+			if (state.studentProgress[studentId][taskType]) {
+				state.studentProgress[studentId][taskType].inProgress = true
+			} else {
 				state.studentProgress[studentId][taskType] = {
+					inProgress: false,
 					earned: 0,
 					index: 0,
 					roundLength,
@@ -85,8 +89,23 @@ export const taskSlice = createSlice({
 			currentTask.creature =
 				state.creatures[getRandomIndex(state.creatures.length)]
 		},
+		resetTask(state) {
+			const currentTask = getCurrentTask(state)
+			const { creatures } = state
+			if (!currentTask) return
+
+			currentTask.earned = 0
+			currentTask.index = 0
+			currentTask.inProgress = false
+			;(currentTask.roundTasks = generateUniqueList(
+				state.tasks,
+				currentTask.roundLength
+			)),
+				(currentTask.creature = creatures[getRandomIndex(creatures.length)])
+		},
 	},
 })
 
 // Action creators are generated for each case reducer function
-export const { initiateTask, updateTaskIndex, nextRound } = taskSlice.actions
+export const { initiateTask, updateTaskIndex, nextRound, resetTask } =
+	taskSlice.actions

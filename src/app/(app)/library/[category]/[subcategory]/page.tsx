@@ -37,7 +37,7 @@ const TaskSubcategoryPage = async ({ params, searchParams }: Props) => {
 					}
 				/>
 			}>
-			<div className="flex w-full max-w-md flex-col items-center">
+			<div className="flex w-full max-w-xl flex-col items-center ">
 				<TaskList
 					isLink={isAdmin}
 					tasks={tasks}
