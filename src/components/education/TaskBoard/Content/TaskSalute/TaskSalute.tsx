@@ -12,11 +12,14 @@ const TaskSalute = () => {
 	const isRoundEnd = useAppSelector(selectIsRoundEnd)
 	const currentRound = useAppSelector(selectCurrentTaskRound)
 
-	if (!isRoundEnd || !currentRound) return null
+	if (!currentRound) return null
+	const hide = isRoundEnd
+		? ""
+		: "opacity-0 pointer-events-none absolute left-1/2 -translate-x-1/2"
 	const { creature } = currentRound
 	const cbQuery = encodeURI(`/education/${studentId}/${taskType}`)
 	return (
-		<div className="flex flex-col items-center gap-6">
+		<div className={`flex flex-col items-center gap-6 ${hide}`}>
 			<Image
 				className="h-64 object-contain"
 				src={creature.media[0]}

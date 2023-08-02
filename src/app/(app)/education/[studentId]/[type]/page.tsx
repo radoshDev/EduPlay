@@ -13,7 +13,7 @@ const EducationTypePage = async ({ params }: Props) => {
 		<TaskBoard
 			tasks={tasks}
 			creatures={creatures}
-			roundLength={5}
+			roundLength={7}
 			taskType={params.type}
 			studentId={params.studentId}
 		/>

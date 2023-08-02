@@ -54,7 +54,7 @@ const TaskForm = ({ action, taskDefault }: Props) => {
 					disabled
 				/>
 				<Button variant="success" type="submit" isLoading={isLoading}>
-					{action === "updateTask" ? "Update" : "Result"}
+					{action === "updateTask" ? "Update" : "Add"}
 				</Button>
 			</Form>
 		</>

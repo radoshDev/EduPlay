@@ -54,7 +54,7 @@ export const taskSlice = createSlice({
 					earned: 0,
 					index: 0,
 					roundLength,
-					roundTasks: generateUniqueList(state.tasks, 5),
+					roundTasks: generateUniqueList(state.tasks, roundLength),
 					creature: creatures[getRandomIndex(creatures.length)],
 				}
 			}
@@ -97,11 +97,11 @@ export const taskSlice = createSlice({
 			currentTask.earned = 0
 			currentTask.index = 0
 			currentTask.inProgress = false
-			;(currentTask.roundTasks = generateUniqueList(
+			currentTask.roundTasks = generateUniqueList(
 				state.tasks,
 				currentTask.roundLength
-			)),
-				(currentTask.creature = creatures[getRandomIndex(creatures.length)])
+			)
+			currentTask.creature = creatures[getRandomIndex(creatures.length)]
 		},
 	},
 })
