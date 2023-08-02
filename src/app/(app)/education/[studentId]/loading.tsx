@@ -1,7 +1,7 @@
 import { PagePreloader } from "@/components/ui/preloader"
 
-const LoadingPage = () => {
+const EducationLoadingPage = () => {
 	return <PagePreloader />
 }
 
-export default LoadingPage
+export default EducationLoadingPage
