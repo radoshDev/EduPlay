@@ -4,22 +4,23 @@ import { useEffect } from "react"
 import { IoReloadSharp, IoArrowForwardSharp } from "react-icons/io5"
 import { Button } from "@/components/ui/buttons"
 import { selectCurrentTaskRound } from "@/redux/features/task/selector"
-import { resetTask } from "@/redux/features/task/taskSlice"
+import { hideResetModal, resetTask } from "@/redux/features/task/taskSlice"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 
 const ResetModal = () => {
 	const dispatch = useAppDispatch()
 	const taskRound = useAppSelector(selectCurrentTaskRound)
 	useEffect(() => {
-		if (taskRound?.inProgress) {
+		if (taskRound?.showResetModal) {
 			// @ts-ignore
 			window.reset_task_modal.showModal()
 		}
-	}, [taskRound?.inProgress])
+	}, [taskRound?.showResetModal])
 
 	function handleClose() {
 		// @ts-ignore
 		window.reset_task_modal.close()
+		dispatch(hideResetModal())
 	}
 
 	function handleResetTask() {

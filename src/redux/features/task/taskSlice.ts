@@ -5,7 +5,7 @@ import { getCurrentTask } from "./utils"
 import { getRandomIndex } from "@/helpers/getRandomIndex"
 
 type TaskRound = {
-	inProgress: boolean
+	showResetModal: boolean
 	index: number
 	earned: number
 	roundLength: number
@@ -38,25 +38,32 @@ export const taskSlice = createSlice({
 		initiateTask(state, action: InitiateTaskPayload) {
 			const { studentId, taskType, tasks, roundLength, creatures } =
 				action.payload
+
 			state.taskType = taskType
 			state.tasks = tasks
 			state.creatures = creatures
 			state.studentId = studentId
+
 			if (!state.studentProgress[studentId]) {
 				state.studentProgress[studentId] = {}
 			}
 
-			if (state.studentProgress[studentId][taskType]) {
-				state.studentProgress[studentId][taskType].inProgress = true
-			} else {
-				state.studentProgress[studentId][taskType] = {
-					inProgress: false,
-					earned: 0,
-					index: 0,
-					roundLength,
-					roundTasks: generateUniqueList(state.tasks, roundLength),
-					creature: creatures[getRandomIndex(creatures.length)],
-				}
+			const currentTask = state.studentProgress[studentId][taskType]
+
+			if (currentTask && (currentTask.earned > 0 || currentTask.index > 0)) {
+				currentTask.showResetModal = true
+				return
+			}
+
+			if (currentTask) return
+
+			state.studentProgress[studentId][taskType] = {
+				showResetModal: false,
+				earned: 0,
+				index: 0,
+				roundLength,
+				roundTasks: generateUniqueList(state.tasks, roundLength),
+				creature: creatures[getRandomIndex(creatures.length)],
 			}
 		},
 		updateTaskIndex(state, action: PayloadAction<"increment" | "decrement">) {
@@ -96,16 +103,27 @@ export const taskSlice = createSlice({
 
 			currentTask.earned = 0
 			currentTask.index = 0
-			currentTask.inProgress = false
+			currentTask.showResetModal = false
 			currentTask.roundTasks = generateUniqueList(
 				state.tasks,
 				currentTask.roundLength
 			)
 			currentTask.creature = creatures[getRandomIndex(creatures.length)]
 		},
+		hideResetModal(state) {
+			const currentTask = getCurrentTask(state)
+			if (!currentTask) return
+
+			currentTask.showResetModal = false
+		},
 	},
 })
 
 // Action creators are generated for each case reducer function
-export const { initiateTask, updateTaskIndex, nextRound, resetTask } =
-	taskSlice.actions
+export const {
+	initiateTask,
+	updateTaskIndex,
+	nextRound,
+	resetTask,
+	hideResetModal,
+} = taskSlice.actions
