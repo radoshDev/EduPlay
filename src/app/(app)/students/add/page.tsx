@@ -1,4 +1,4 @@
-import { NewStudentForm } from "@/components/forms"
+import { StudentForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"
@@ -19,7 +19,11 @@ const AddStudentPage = async () => {
 		<PageLayout
 			title={<PageTitle title="New student" backButton href="/students" />}>
 			<Suspense fallback={<div>Student Form loading...</div>}>
-				<NewStudentForm creaturesImage={creaturesImage} />
+				<StudentForm
+					creaturesImage={creaturesImage}
+					action="addStudent"
+					defaultValues={{ avatar: creaturesImage[0] }}
+				/>
 			</Suspense>
 		</PageLayout>
 	)

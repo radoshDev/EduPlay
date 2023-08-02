@@ -20,7 +20,7 @@ const StudentPage = async ({ params }: Props) => {
 					title="Student Info"
 					backButton
 					href={`/education/${studentId}`}
-					afterAction={<ButtonEdit />}
+					afterAction={<ButtonEdit href={`${studentId}/update`} />}
 				/>
 			}>
 			<div>

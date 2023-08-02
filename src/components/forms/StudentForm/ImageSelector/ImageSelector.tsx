@@ -11,14 +11,28 @@ import {
 
 type Props = {
 	imageUrls: string[]
+	imageDefault: string
 	setImage: (imageUrl: string) => void
 }
 
-const ImageSelector: FC<Props> = ({ imageUrls, setImage }) => {
-	const [slideIndex, setSlideIndex] = useState(0)
-	const [selectedImage, setSelectedImage] = useState(imageUrls[0])
+const ImageSelector: FC<Props> = ({ imageUrls, setImage, imageDefault }) => {
 	const slides = useMemo(() => breakArrayBySize(imageUrls, 8), [imageUrls])
+	const [slideIndex, setSlideIndex] = useState(getDefaultIndex())
+	const [selectedImage, setSelectedImage] = useState(imageDefault)
 	const slide = slides[slideIndex]
+
+	function getDefaultIndex() {
+		for (let i = 0; i < slides.length; i++) {
+			const slide = slides[i]
+			for (let img of slide) {
+				if (img === imageDefault) {
+					return i
+				}
+			}
+		}
+		return 0
+	}
+
 	function handleSelectImage(img: string) {
 		setSelectedImage(img)
 		setImage(img)

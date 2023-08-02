@@ -1,38 +1,47 @@
 "use client"
-import { FC } from "react"
+
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/utils/api"
-import { AddStudentInput, AddStudentSchema } from "@/schemas/StudentSchema"
+import { StudentInput, StudentSchema } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
 import { Alert, InputField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
+import { AtLeast } from "@/types"
 
 type Props = {
 	creaturesImage: string[]
+	action: Extract<keyof typeof api.student, "addStudent" | "updateStudent">
+	defaultValues: AtLeast<StudentInput, "avatar">
 }
 
-const NewStudentForm: FC<Props> = ({ creaturesImage }) => {
+const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 	const router = useRouter()
-	const { mutate, isError, isLoading, error } =
-		api.student.addStudent.useMutation({
+	const { mutate, isError, isLoading, error } = api.student[action].useMutation(
+		{
 			onSuccess() {
-				router.push("/students")
+				router.push(
+					action === "addStudent"
+						? "/students"
+						: `/students/${defaultValues.id}`
+				)
 			},
-		})
+		}
+	)
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		formState: { errors },
-	} = useForm<AddStudentInput>({
-		defaultValues: { avatar: creaturesImage[0] },
-		resolver: zodResolver(AddStudentSchema),
+	} = useForm<StudentInput>({
+		defaultValues,
+		resolver: zodResolver(StudentSchema),
 	})
 
 	const onSubmit = handleSubmit(data => {
-		mutate(data)
+		// @ts-ignore
+		mutate({ ...data, id: defaultValues?.id })
 	})
 	return (
 		<>
@@ -46,6 +55,7 @@ const NewStudentForm: FC<Props> = ({ creaturesImage }) => {
 				<div className="mb-4">
 					<div className="text-sm">Avatar</div>
 					<ImageSelector
+						imageDefault={defaultValues.avatar}
 						imageUrls={creaturesImage}
 						setImage={img => setValue("avatar", img)}
 					/>
@@ -56,7 +66,7 @@ const NewStudentForm: FC<Props> = ({ creaturesImage }) => {
 						variant="success"
 						type="submit"
 						size="sm">
-						Add
+						{action === "addStudent" ? "Add" : "Update"}
 					</Button>
 				</div>
 			</form>
@@ -65,4 +75,4 @@ const NewStudentForm: FC<Props> = ({ creaturesImage }) => {
 	)
 }
 
-export default NewStudentForm
+export default StudentForm

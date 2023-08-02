@@ -1,8 +1,9 @@
 import { z } from "zod"
 
-export const AddStudentSchema = z.object({
+export const StudentSchema = z.object({
+	id: z.string().optional(),
 	name: z.string().nonempty("Name is required"),
 	avatar: z.string(),
 })
 
-export type AddStudentInput = z.infer<typeof AddStudentSchema>
+export type StudentInput = z.infer<typeof StudentSchema>
