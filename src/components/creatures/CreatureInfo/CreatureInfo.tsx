@@ -1,35 +1,40 @@
 import { FC } from "react"
+import { HiOutlineExternalLink } from "react-icons/hi"
 import { Creature } from "@prisma/client"
 import Image from "next/image"
 import cn from "clsx"
+import Link from "next/link"
 
 type Props = {
 	creature: Creature
 }
 
 const CreatureInfo: FC<Props> = ({ creature }) => {
-	const isLargeImage = creature.categorySlug !== "among-us"
+	const { source, categorySlug, description, mainImage, name, media } = creature
+	const isLargeImage = categorySlug !== "among-us"
 	return (
 		<div>
 			<Image
-				src={creature.mainImage}
-				alt={creature.name}
+				src={mainImage}
+				alt={name}
 				width={isLargeImage ? 300 : 150}
 				height={isLargeImage ? 300 : 150}
 				className={cn("mx-auto object-contain", {
 					["max-h-[75vh]"]: isLargeImage,
 				})}
 			/>
-
-			{creature.descriptionUA && (
-				<div className="mt-6 text-lg md:mx-auto md:max-w-md">
-					{creature.descriptionUA}
-				</div>
+			<div>Media: {JSON.stringify(media)}</div>
+			{source && (
+				<Link
+					href={source}
+					target="_blank"
+					className="mt-6 flex items-center gap-1 text-info underline">
+					More Info
+					<HiOutlineExternalLink />
+				</Link>
 			)}
-			{creature.description && (
-				<div className="mt-6 md:mx-auto md:max-w-md">
-					{creature.description}
-				</div>
+			{description && (
+				<div className="mt-6 md:mx-auto md:max-w-md">{description}</div>
 			)}
 		</div>
 	)

@@ -1,6 +1,6 @@
 export { default as LoginForm } from "./LoginForm/LoginForm"
 export { default as NewCreatureCategoryForm } from "./NewCreatureCategoryForm/NewCreatureCategoryForm"
-export { default as NewCreatureForm } from "./NewCreatureForm/NewCreatureForm"
+export { default as CreatureForm } from "./CreatureForm/CreatureForm"
 export { default as StudentForm } from "./StudentForm/StudentForm"
 export { default as NewTaskCategoryForm } from "./NewTaskCategoryForm/NewTaskCategoryForm"
 export { default as NewTaskSubcategoryForm } from "./NewTaskSubcategoryForm/NewTaskSubcategoryForm"

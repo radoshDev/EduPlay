@@ -22,8 +22,9 @@ export const CreatureGetSchema = z.object({
 
 const CreatureSchema = z.object({
 	name: z.string(),
+	id: z.string().optional(),
+	source: z.string().optional(),
 	description: z.string().optional(),
-	descriptionUA: z.string().optional(),
 	imageUrl: z.string().optional(),
 })
 

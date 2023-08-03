@@ -6,32 +6,25 @@ import uploadImageToStorage from "@/utils/uploadImageToStorage"
 const addCreatureHandler = adminProcedure
 	.input(CreatureInputSchema)
 	.mutation(async ({ input }) => {
-		const {
-			categorySlug,
-			description,
-			descriptionUA,
-			imageFile,
-			imageUrl,
-			name,
-		} = input
-		let media = ""
+		const { imageFile, imageUrl, ...data } = input
+		let mainImage = ""
+
 		if (imageFile) {
-			media = await uploadImageToStorage({
+			mainImage = await uploadImageToStorage({
 				base64: imageFile.base64,
 				bucket: "creatures",
-				folder: categorySlug,
+				folder: data.categorySlug,
 				fileName: imageFile.name,
 			})
 		}
-		if (imageUrl) media = imageUrl
+
+		if (imageUrl) mainImage = imageUrl
+
 		return prisma.creature.create({
 			data: {
-				name,
-				categorySlug,
-				description,
-				descriptionUA,
-				media: "",
-				mainImage: media,
+				...data,
+				mainImage,
+				media: [],
 			},
 		})
 	})

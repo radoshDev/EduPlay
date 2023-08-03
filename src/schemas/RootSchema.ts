@@ -6,7 +6,10 @@ export const ImageFileSchema = z
 	.object({
 		name: z
 			.string()
-			.refine(val => /\w+\.(jpg|png|jpeg|svg|gif|webp)/.test(val)),
+			.refine(
+				val => /\w+\.(jpg|png|jpeg|svg|gif|webp)/.test(val),
+				"Invalid image format. Allow: jpg|png|jpeg|svg|gif|webp"
+			),
 		base64: z.string(),
 	})
 	.optional()

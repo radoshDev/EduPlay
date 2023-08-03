@@ -19,15 +19,14 @@ model CreatureCategory {
 }
 
 model Creature {
-  id            String           @id @default(cuid())
-  mainImage     String
-  media         String[]
-  name          String
-  description   String?
-  descriptionUA String?
-  source        String?
-  category      CreatureCategory @relation(fields: [categorySlug], references: [slug])
-  categorySlug  String
+  id           String           @id @default(cuid())
+  mainImage    String
+  media        String[]
+  name         String
+  description  String?
+  source       String?
+  category     CreatureCategory @relation(fields: [categorySlug], references: [slug])
+  categorySlug String
 }
 
 enum Difficulty {

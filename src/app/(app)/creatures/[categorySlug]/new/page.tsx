@@ -1,10 +1,10 @@
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
-import { ImportForm, NewCreatureForm } from "@/components/forms"
+import { ImportForm, CreatureForm } from "@/components/forms"
 import { PageProps } from "@/types"
 import { IMPORT_TEMPLATE } from "@/constants"
 
-const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
+const NewCreaturePage = ({ params }: PageProps<"categorySlug">) => {
 	return (
 		<PageLayout
 			title={
@@ -20,7 +20,7 @@ const NewCreaturePage = async ({ params }: PageProps<"categorySlug">) => {
 					}
 				/>
 			}>
-			<NewCreatureForm categorySlug={params.categorySlug} />
+			<CreatureForm action="addCreature" categorySlug={params.categorySlug} />
 		</PageLayout>
 	)
 }
