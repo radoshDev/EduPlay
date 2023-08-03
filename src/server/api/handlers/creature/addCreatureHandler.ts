@@ -25,7 +25,14 @@ const addCreatureHandler = adminProcedure
 		}
 		if (imageUrl) media = imageUrl
 		return prisma.creature.create({
-			data: { name, categorySlug, description, descriptionUA, media },
+			data: {
+				name,
+				categorySlug,
+				description,
+				descriptionUA,
+				media: "",
+				mainImage: media,
+			},
 		})
 	})
 
