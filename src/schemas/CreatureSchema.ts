@@ -26,6 +26,7 @@ const CreatureSchema = z.object({
 	source: z.string().optional(),
 	description: z.string().optional(),
 	imageUrl: z.string().optional(),
+	media: z.array(z.string()).optional(),
 })
 
 export const CreatureFormSchema = CreatureSchema.extend({

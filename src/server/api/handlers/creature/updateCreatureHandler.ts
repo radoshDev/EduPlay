@@ -7,10 +7,10 @@ const updateCreatureHandler = adminProcedure
 	.input(CreatureInputSchema)
 	.mutation(async ({ input }) => {
 		const { imageFile, id, imageUrl, ...data } = input
-		let media = ""
+		let mainImage = ""
 
 		if (imageFile) {
-			media = await uploadImageToStorage({
+			mainImage = await uploadImageToStorage({
 				base64: imageFile.base64,
 				bucket: "creatures",
 				folder: data.categorySlug,
@@ -18,14 +18,13 @@ const updateCreatureHandler = adminProcedure
 			})
 		}
 
-		if (imageUrl) media = imageUrl
+		if (imageUrl) mainImage = imageUrl
 
 		return prisma.creature.update({
 			where: { id },
 			data: {
 				...data,
-				media: "",
-				mainImage: media,
+				mainImage,
 			},
 		})
 	})

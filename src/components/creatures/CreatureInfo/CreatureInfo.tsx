@@ -23,7 +23,9 @@ const CreatureInfo: FC<Props> = ({ creature }) => {
 					["max-h-[75vh]"]: isLargeImage,
 				})}
 			/>
-			<div>Media: {JSON.stringify(media)}</div>
+			<div>
+				Media: {JSON.stringify(media)}, {media.length}
+			</div>
 			{source && (
 				<Link
 					href={source}

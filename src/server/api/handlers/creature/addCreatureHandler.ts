@@ -24,7 +24,6 @@ const addCreatureHandler = adminProcedure
 			data: {
 				...data,
 				mainImage,
-				media: [],
 			},
 		})
 	})

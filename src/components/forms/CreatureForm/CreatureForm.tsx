@@ -94,6 +94,9 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 						error={errors.imageUrl?.message}
 					/>
 				</div>
+				<div>
+					<div>Media</div>
+				</div>
 				<Button isLoading={isLoading} type="submit" variant="success">
 					{action === "addCreature" ? "Create" : "Update"}
 				</Button>
