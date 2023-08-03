@@ -20,7 +20,7 @@ const CreaturesList = async ({ categorySlug, categoryTitle }: Props) => {
 	} else {
 		content = creatures.map(creature => (
 			<Link href={`${categorySlug}/${creature.id}`} key={creature.id}>
-				<ImageCard title={creature.name} imageSrc={creature.media[0]} />
+				<ImageCard title={creature.name} imageSrc={creature.mainImage} />
 			</Link>
 		))
 	}

@@ -14,7 +14,7 @@ const AddStudentPage = async () => {
 	const creatures = await prisma.creature.findMany({
 		orderBy: [{ categorySlug: "asc" }, { name: "asc" }],
 	})
-	const creaturesImage = creatures.map(creature => creature.media[0])
+	const creaturesImage = creatures.map(creature => creature.mainImage)
 	return (
 		<PageLayout
 			title={<PageTitle title="New student" backButton href="/students" />}>

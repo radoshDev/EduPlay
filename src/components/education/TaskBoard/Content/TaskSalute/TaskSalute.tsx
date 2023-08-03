@@ -22,7 +22,7 @@ const TaskSalute = () => {
 		<div className={`flex flex-col items-center gap-6 ${hide}`}>
 			<Image
 				className="h-64 object-contain"
-				src={creature.media[0]}
+				src={creature.mainImage}
 				alt={creature.name}
 				width={300}
 				height={300}

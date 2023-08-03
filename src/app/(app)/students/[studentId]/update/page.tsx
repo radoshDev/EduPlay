@@ -22,7 +22,7 @@ const UpdateStudentPage = async ({ params }: Props) => {
 	const creatures = await prisma.creature.findMany({
 		orderBy: [{ categorySlug: "asc" }, { name: "asc" }],
 	})
-	const creaturesImage = creatures.map(creature => creature.media[0])
+	const creaturesImage = creatures.map(creature => creature.mainImage)
 	return (
 		<PageLayout title={<PageTitle title="Edit student" backButton href="." />}>
 			<Suspense fallback={<div>Student Form loading...</div>}>

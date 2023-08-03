@@ -11,7 +11,9 @@ export const metadata = {
 
 const CreaturesPage = async () => {
 	const session = await getServerAuthSession()
-	const creatureCategories = await prisma.creatureCategory.findMany()
+	const creatureCategories = await prisma.creatureCategory.findMany({
+		orderBy: { slug: "asc" },
+	})
 	const isAdmin = session?.user.role === "admin"
 
 	return (

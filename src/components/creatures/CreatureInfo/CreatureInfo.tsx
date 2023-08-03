@@ -12,7 +12,7 @@ const CreatureInfo: FC<Props> = ({ creature }) => {
 	return (
 		<div>
 			<Image
-				src={creature.media[0]}
+				src={creature.mainImage}
 				alt={creature.name}
 				width={isLargeImage ? 300 : 150}
 				height={isLargeImage ? 300 : 150}
