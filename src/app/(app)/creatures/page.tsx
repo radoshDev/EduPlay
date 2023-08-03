@@ -6,9 +6,7 @@ import { CategoryList, PageTitle } from "@/components/ui"
 import { ButtonEducation, ButtonIcon } from "@/components/ui/buttons"
 
 export const metadata = {
-	title: "Creatures | EduPlay",
-	description:
-		"EduPlay: Learn & Earn Coins makes education exciting with fun-filled lessons on alphabets, words, and math. Kids enjoy the engaging, interactive tasks and earn coins for their achievements, turning learning into an adventurous game!",
+	title: "Creatures",
 }
 
 const CreaturesPage = async () => {
