@@ -1,10 +1,10 @@
-import { FC } from "react"
+import { FC, MouseEvent } from "react"
 import { BsPlusCircleFill } from "react-icons/bs"
 import { ButtonIcon } from "@/components/ui/buttons"
 
 type Props = {
 	href?: string
-	onClick?: () => void
+	onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 	className?: string
 }
 

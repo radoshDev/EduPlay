@@ -21,7 +21,7 @@ export const CreatureGetSchema = z.object({
 })
 
 const CreatureSchema = z.object({
-	name: z.string(),
+	name: z.string().min(2),
 	id: z.string().optional(),
 	source: z.string().optional(),
 	description: z.string().optional(),

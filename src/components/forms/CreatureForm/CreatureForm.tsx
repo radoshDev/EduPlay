@@ -14,6 +14,7 @@ import { api } from "@/utils/api"
 import { ImageFile } from "@/schemas/RootSchema"
 import { Button } from "@/components/ui/buttons"
 import { Creature } from "@prisma/client"
+import MediaBlock from "./MediaBlock/MediaBlock"
 
 type Props = {
 	action: Extract<keyof typeof api.creature, "addCreature" | "updateCreature">
@@ -27,6 +28,8 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 
 	const {
 		register,
+		getValues,
+		setValue,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<CreatureForm>({
@@ -47,8 +50,12 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
 
-		mutate({ ...data, imageFile, categorySlug })
+		mutate({ ...data, imageFile, categorySlug, media: data.media || [] })
 	})
+
+	function setMedia(values: string[]) {
+		setValue("media", values)
+	}
 
 	return (
 		<>
@@ -94,10 +101,12 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 						error={errors.imageUrl?.message}
 					/>
 				</div>
-				<div>
-					<div>Media</div>
-				</div>
-				<Button isLoading={isLoading} type="submit" variant="success">
+				<MediaBlock setMedia={setMedia} defaultValues={getValues("media")} />
+				<Button
+					className="mt-4"
+					isLoading={isLoading}
+					type="submit"
+					variant="success">
 					{action === "addCreature" ? "Create" : "Update"}
 				</Button>
 			</Form>
