@@ -7,6 +7,10 @@ export const getTasks = async (type: string) => {
 		case EARN_TYPES[1].type:
 		case EARN_TYPES[2].type:
 			return prisma.task.findMany()
+		case "math":
+			return prisma.task.findMany({
+				where: { subcategory: { parentSlug: "math" } },
+			})
 		case "reading":
 			return prisma.task.findMany({
 				where: { subcategory: { parentSlug: "reading" } },
