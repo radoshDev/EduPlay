@@ -3,8 +3,9 @@ import { FC } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import toast, { Toaster } from "react-hot-toast"
 import { RegisterSchema, type RegisterCred } from "@/schemas/AuthSchema"
-import { InputField, Toast } from "@/components/ui"
+import { InputField } from "@/components/ui"
 import { api } from "@/utils/api"
 import { Button } from "@/components/ui/buttons"
 
@@ -17,8 +18,9 @@ const RegisterForm: FC = () => {
 	} = useForm<RegisterCred>({
 		resolver: zodResolver(RegisterSchema),
 	})
-	const { isSuccess, isError, isLoading, error, mutate } =
-		api.register.useMutation({ onSuccess: handleOnSuccess })
+	const { isLoading, mutateAsync } = api.register.useMutation({
+		onSuccess: handleOnSuccess,
+	})
 
 	function handleOnSuccess() {
 		setTimeout(() => {
@@ -26,13 +28,17 @@ const RegisterForm: FC = () => {
 		}, 3000)
 	}
 
-	const onSubmit = handleSubmit(async userCred => {
-		mutate(userCred)
+	const onSubmit = handleSubmit(userCred => {
+		toast.promise(mutateAsync(userCred), {
+			loading: "Registering...",
+			error: err => err.message || "Problem to register",
+			success: "User created!",
+		})
 	})
 
 	return (
 		<>
-			{isSuccess && <Toast message="User created!" variant="success" />}
+			<Toaster />
 			<form onSubmit={onSubmit} autoComplete="off">
 				<InputField
 					label="Name"
@@ -57,7 +63,6 @@ const RegisterForm: FC = () => {
 				<Button disabled={isLoading} variant="success" type="submit">
 					Register
 				</Button>
-				{isError && <div className="text-error">{error.message}</div>}
 			</form>
 		</>
 	)

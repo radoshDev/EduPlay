@@ -1,5 +1,6 @@
 "use client"
 import { AiFillFileAdd } from "react-icons/ai"
+import toast, { Toaster } from "react-hot-toast"
 import { FC, MouseEvent, useRef } from "react"
 import { ButtonIcon, Button } from "@/components/ui/buttons"
 import toBase64 from "@/helpers/toBase64"
@@ -12,8 +13,7 @@ type Props = {
 
 const ImportForm: FC<Props> = props => {
 	const { templateLink, action } = props
-	const { data, error, isSuccess, isError, mutate, isLoading } =
-		api.import[action].useMutation()
+	const { mutateAsync, isLoading } = api.import[action].useMutation()
 	const fileRef = useRef<HTMLInputElement | null>(null)
 
 	function handleShowModal() {
@@ -28,8 +28,15 @@ const ImportForm: FC<Props> = props => {
 			console.error("CSV file not added!")
 			return
 		}
-		const base64File = await toBase64(file)
-		mutate({ base64File })
+		const promise = toBase64(file).then(base64File =>
+			mutateAsync({ base64File })
+		)
+
+		toast.promise(promise, {
+			loading: "Importing...",
+			error: err => err.message || "Import failed.",
+			success: data => data?.message || "Import successfully!",
+		})
 	}
 
 	return (
@@ -38,6 +45,7 @@ const ImportForm: FC<Props> = props => {
 				color="success"
 				icon={<AiFillFileAdd size={28} onClick={handleShowModal} />}
 			/>
+			<Toaster />
 			<dialog id="my_modal_2" className="modal backdrop:backdrop-blur-sm">
 				<form method="dialog" className="modal-box text-center">
 					<h3 className="text-lg font-bold">Multiple adding</h3>
@@ -60,14 +68,6 @@ const ImportForm: FC<Props> = props => {
 						onClick={handleImportFile}>
 						IMPORT
 					</Button>
-					{isSuccess && (
-						<div className="mt-3 text-success">
-							{data?.message || "Import successfully!"}
-						</div>
-					)}
-					{isError && (
-						<div className="mt-3 text-error">{error.message || "Error!!!"}</div>
-					)}
 				</form>
 				<form method="dialog" className="modal-backdrop">
 					<button>close</button>

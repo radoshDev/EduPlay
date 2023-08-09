@@ -1,5 +1,8 @@
 "use client"
-import { Form, InputField, InputImageField, Toast } from "@/components/ui"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import toast, { Toaster } from "react-hot-toast"
+import { Form, InputField, InputImageField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
 import toBase64 from "@/helpers/toBase64"
 import { ImageFile } from "@/schemas/RootSchema"
@@ -8,15 +11,13 @@ import {
 	TaskSubcategoryFormSchema,
 } from "@/schemas/TaskSchema"
 import { api } from "@/utils/api"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 
 type Props = {
 	parentSlug: string
 }
 
 const NewTaskSubcategoryForm = ({ parentSlug }: Props) => {
-	const { isLoading, isError, isSuccess, error, mutate, data } =
+	const { isLoading, mutateAsync } =
 		api.library.addTaskSubcategory.useMutation()
 	const {
 		register,
@@ -31,16 +32,15 @@ const NewTaskSubcategoryForm = ({ parentSlug }: Props) => {
 		if (file) {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
-		mutate({ ...data, parentSlug, imageFile })
+		toast.promise(mutateAsync({ ...data, parentSlug, imageFile }), {
+			loading: "Creating...",
+			error: err => err.message || "Failed",
+			success: data => data?.message || "Subcategory created!",
+		})
 	})
 	return (
 		<>
-			{isSuccess && (
-				<Toast variant="success" message={data?.message || "Created!"} />
-			)}
-			{isError && (
-				<Toast variant="error" message={error.message || "Failed!"} />
-			)}
+			<Toaster />
 			<Form onSubmit={onSubmit}>
 				<InputField
 					label="Title"

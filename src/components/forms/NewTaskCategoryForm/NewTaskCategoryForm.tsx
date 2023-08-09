@@ -2,16 +2,16 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import toast, { Toaster } from "react-hot-toast"
 import { TaskCategoryForm, TaskCategoryFormSchema } from "@/schemas/TaskSchema"
-import { Form, InputField, InputImageField, Toast } from "@/components/ui"
+import { Form, InputField, InputImageField } from "@/components/ui"
 import { api } from "@/utils/api"
 import { ImageFile } from "@/schemas/RootSchema"
 import toBase64 from "@/helpers/toBase64"
 import { Button } from "@/components/ui/buttons"
 
 const NewTaskCategoryForm: FC = () => {
-	const { isError, error, isLoading, isSuccess, mutate, data } =
-		api.library.addTaskCategory.useMutation()
+	const { isLoading, mutateAsync } = api.library.addTaskCategory.useMutation()
 	const {
 		register,
 		handleSubmit,
@@ -26,18 +26,16 @@ const NewTaskCategoryForm: FC = () => {
 		if (file) {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
-
-		mutate({ ...data, imageFile })
+		toast.promise(mutateAsync({ ...data, imageFile }), {
+			loading: "Creating...",
+			error: err => err.message || "Failed:(",
+			success: data => data?.message || "Category created!",
+		})
 	})
 
 	return (
 		<>
-			{isSuccess && (
-				<Toast variant="success" message={data?.message || "Created!"} />
-			)}
-			{isError && (
-				<Toast variant="error" message={error.message || "Failed!"} />
-			)}
+			<Toaster />
 			<Form onSubmit={onSubmit}>
 				<InputField
 					label="Category Title"

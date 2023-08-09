@@ -3,10 +3,11 @@
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import toast, { Toaster } from "react-hot-toast"
 import { api } from "@/utils/api"
 import { StudentInput, StudentSchema } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
-import { Alert, InputField } from "@/components/ui"
+import { InputField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
 import { AtLeast } from "@/types"
 
@@ -18,17 +19,13 @@ type Props = {
 
 const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 	const router = useRouter()
-	const { mutate, isError, isLoading, error } = api.student[action].useMutation(
-		{
-			onSuccess() {
-				router.push(
-					action === "addStudent"
-						? "/students"
-						: `/students/${defaultValues.id}`
-				)
-			},
-		}
-	)
+	const { mutateAsync, isLoading } = api.student[action].useMutation({
+		onSuccess() {
+			router.push(
+				action === "addStudent" ? "/students" : `/students/${defaultValues.id}`
+			)
+		},
+	})
 	const {
 		register,
 		handleSubmit,
@@ -41,10 +38,15 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 
 	const onSubmit = handleSubmit(data => {
 		// @ts-ignore
-		mutate({ ...data, id: defaultValues?.id })
+		toast.promise(mutateAsync({ ...data, id: defaultValues?.id }), {
+			error: err => err.message || "Failed:(",
+			loading: "Processing...",
+			success: "Success!",
+		})
 	})
 	return (
 		<>
+			<Toaster />
 			<form onSubmit={onSubmit} className="w-full max-w-md">
 				<InputField
 					label="Name"
@@ -70,7 +72,6 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 					</Button>
 				</div>
 			</form>
-			{isError && <Alert message={error.message} variant="error" />}
 		</>
 	)
 }

@@ -1,7 +1,8 @@
 "use client"
-import { Form, InputField, Toast } from "@/components/ui"
+import { Form, InputField } from "@/components/ui"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import toast, { Toaster } from "react-hot-toast"
 import { TaskForm, TaskSchema } from "@/schemas/TaskSchema"
 import { api } from "@/utils/api"
 import { Task } from "@prisma/client"
@@ -14,8 +15,7 @@ type Props = {
 }
 
 const TaskForm = ({ action, taskDefault }: Props) => {
-	const { data, error, isSuccess, isError, isLoading, mutate } =
-		api.library[action].useMutation()
+	const { isLoading, mutateAsync } = api.library[action].useMutation()
 	const {
 		handleSubmit,
 		register,
@@ -27,16 +27,15 @@ const TaskForm = ({ action, taskDefault }: Props) => {
 
 	const onSubmit = handleSubmit(data => {
 		// @ts-ignore
-		mutate({ ...data, id: taskDefault.id })
+		toast.promise(mutateAsync({ ...data, id: taskDefault.id }), {
+			error: err => err.message || "Failed:(",
+			loading: "Processing...",
+			success: data => data?.message || "Success!",
+		})
 	})
 	return (
 		<>
-			{isSuccess && (
-				<Toast variant="success" message={data?.message || "Created!"} />
-			)}
-			{isError && (
-				<Toast variant="error" message={error.message || "Failed!"} />
-			)}
+			<Toaster />
 			<Form onSubmit={onSubmit}>
 				<InputField
 					label="Value"
