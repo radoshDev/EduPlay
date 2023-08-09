@@ -13,7 +13,7 @@ const CreatureInfo: FC<Props> = ({ creature }) => {
 	const { source, categorySlug, description, mainImage, name, media } = creature
 	const isLargeImage = categorySlug !== "among-us"
 	return (
-		<div>
+		<div className="overflow-auto">
 			<Image
 				src={mainImage}
 				alt={name}
@@ -32,7 +32,7 @@ const CreatureInfo: FC<Props> = ({ creature }) => {
 						width={isLargeImage ? 250 : 100}
 						height={isLargeImage ? 250 : 100}
 						className={cn("mx-auto object-contain", {
-							["max-h-[75vh]"]: isLargeImage,
+							["max-h-[50vh]"]: isLargeImage,
 						})}
 					/>
 				))}

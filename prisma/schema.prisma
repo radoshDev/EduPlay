@@ -8,14 +8,13 @@ datasource db {
 }
 
 model CreatureCategory {
-  id            String     @id @default(cuid())
-  title         String
-  imageUrl      String
-  slug          String     @unique
-  description   String?
-  descriptionUA String?
-  sourceLink    String?
-  creatures     Creature[]
+  id          String     @id @default(cuid())
+  title       String
+  imageUrl    String
+  slug        String     @unique
+  description String?
+  sourceLink  String?
+  creatures   Creature[]
 }
 
 model Creature {

@@ -4,7 +4,7 @@ import { ImageFileSchema, validateImage } from "./RootSchema"
 const CreatureCategorySchema = z.object({
 	title: z.string().min(3),
 	description: z.string().optional(),
-	descriptionUA: z.string().optional(),
+	sourceLink: z.string().optional(),
 	imageUrl: z.string().optional(),
 })
 
@@ -40,3 +40,4 @@ export const CreatureInputSchema = CreatureSchema.extend({
 
 export type CreatureCategoryForm = z.infer<typeof CreatureCategoryFormSchema>
 export type CreatureForm = z.infer<typeof CreatureFormSchema>
+export type CreatureInput = z.infer<typeof CreatureInputSchema>

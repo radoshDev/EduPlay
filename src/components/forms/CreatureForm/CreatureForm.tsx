@@ -9,7 +9,11 @@ import {
 	TextAreaField,
 } from "@/components/ui"
 import toBase64 from "@/helpers/toBase64"
-import { CreatureForm, CreatureFormSchema } from "@/schemas/CreatureSchema"
+import {
+	CreatureForm,
+	CreatureFormSchema,
+	CreatureInput,
+} from "@/schemas/CreatureSchema"
 import { api } from "@/utils/api"
 import { ImageFile } from "@/schemas/RootSchema"
 import { Button } from "@/components/ui/buttons"
@@ -48,9 +52,7 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 		if (file) {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
-		console.log(data)
-
-		const newData = {
+		const newData: CreatureInput = {
 			...data,
 			imageFile,
 			categorySlug,
@@ -58,7 +60,9 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 		}
 		toast.promise(mutateAsync(newData), {
 			loading: `${action === "addCreature" ? "Adding" : "Updating"}...`,
-			error: `Could not ${action === "addCreature" ? "add" : "update"}`,
+			error: err =>
+				err.message ||
+				`Could not ${action === "addCreature" ? "add" : "update"}`,
 			success: `Creature ${action === "addCreature" ? "added" : "updated"}`,
 		})
 	})
