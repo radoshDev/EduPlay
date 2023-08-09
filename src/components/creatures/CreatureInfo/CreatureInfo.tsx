@@ -23,8 +23,19 @@ const CreatureInfo: FC<Props> = ({ creature }) => {
 					["max-h-[75vh]"]: isLargeImage,
 				})}
 			/>
-			<div>
-				Media: {JSON.stringify(media)}, {media.length}
+			<div className="mt-4 flex flex-col gap-4">
+				{media.map(image => (
+					<Image
+						key={image}
+						src={image}
+						alt={name}
+						width={isLargeImage ? 250 : 100}
+						height={isLargeImage ? 250 : 100}
+						className={cn("mx-auto object-contain", {
+							["max-h-[75vh]"]: isLargeImage,
+						})}
+					/>
+				))}
 			</div>
 			{source && (
 				<Link

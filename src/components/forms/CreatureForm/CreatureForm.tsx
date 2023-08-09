@@ -1,12 +1,12 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import toast, { Toaster } from "react-hot-toast"
 import {
 	Form,
 	InputField,
 	InputImageField,
 	TextAreaField,
-	Toast,
 } from "@/components/ui"
 import toBase64 from "@/helpers/toBase64"
 import { CreatureForm, CreatureFormSchema } from "@/schemas/CreatureSchema"
@@ -23,8 +23,7 @@ type Props = {
 }
 
 const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
-	const { mutate, isSuccess, isError, error, isLoading } =
-		api.creature[action].useMutation()
+	const { isLoading, mutateAsync } = api.creature[action].useMutation()
 
 	const {
 		register,
@@ -49,27 +48,32 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 		if (file) {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
+		console.log(data)
 
-		mutate({ ...data, imageFile, categorySlug, media: data.media || [] })
+		const newData = {
+			...data,
+			imageFile,
+			categorySlug,
+			media: data.media || [],
+		}
+		toast.promise(mutateAsync(newData), {
+			loading: `${action === "addCreature" ? "Adding" : "Updating"}...`,
+			error: `Could not ${action === "addCreature" ? "add" : "update"}`,
+			success: `Creature ${action === "addCreature" ? "added" : "updated"}`,
+		})
 	})
 
 	function setMedia(values: string[]) {
 		setValue("media", values)
 	}
 
+	function setMainImage(newMainImage: string) {
+		setValue("imageUrl", newMainImage)
+	}
+
 	return (
 		<>
-			{isSuccess && (
-				<Toast
-					message={`Creature ${
-						action === "addCreature" ? "added" : "updated"
-					}!`}
-					variant="success"
-				/>
-			)}
-			{isError && (
-				<Toast variant="error" message={error.message || `Failed:("`} />
-			)}
+			<Toaster />
 			<Form onSubmit={onSubmit}>
 				<InputField
 					label="Name"
@@ -101,7 +105,12 @@ const CreatureForm = ({ action, categorySlug, defaultValues }: Props) => {
 						error={errors.imageUrl?.message}
 					/>
 				</div>
-				<MediaBlock setMedia={setMedia} defaultValues={getValues("media")} />
+				<MediaBlock
+					setMedia={setMedia}
+					mainImage={getValues("imageUrl")}
+					setMainImage={setMainImage}
+					defaultValues={getValues("media")}
+				/>
 				<Button
 					className="mt-4"
 					isLoading={isLoading}
