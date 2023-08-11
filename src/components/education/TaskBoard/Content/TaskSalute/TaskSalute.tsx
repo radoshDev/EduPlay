@@ -6,11 +6,14 @@ import {
 } from "@/redux/features/task/selector"
 import { useAppSelector } from "@/redux/hooks"
 import { ButtonIcon } from "@/components/ui/buttons"
+import { useParams } from "next/navigation"
 
 const TaskSalute = () => {
 	const { studentId, taskType } = useAppSelector(s => s.task)
 	const isRoundEnd = useAppSelector(selectIsRoundEnd)
 	const currentRound = useAppSelector(selectCurrentTaskRound)
+	const params = useParams()
+	const isExistStudent = params.studentId !== "unknown"
 
 	if (!currentRound) return null
 	const hide = isRoundEnd
@@ -28,11 +31,13 @@ const TaskSalute = () => {
 				height={300}
 			/>
 			<div className="text-2xl font-bold">{creature.name}</div>
-			<ButtonIcon
-				color="warning"
-				icon={<FaQuestionCircle size={24} />}
-				href={`/creatures/${creature.categorySlug}/${creature.id}?cb=${cbQuery}`}
-			/>
+			{isExistStudent && (
+				<ButtonIcon
+					color="warning"
+					icon={<FaQuestionCircle size={24} />}
+					href={`/creatures/${creature.categorySlug}/${creature.id}?cb=${cbQuery}`}
+				/>
+			)}
 		</div>
 	)
 }

@@ -4,10 +4,15 @@ import { SlOptionsVertical } from "react-icons/sl"
 import BoardResult from "./BoardResult/BoardResult"
 import { useAppSelector } from "@/redux/hooks"
 import { selectCurrentTaskRound } from "@/redux/features/task/selector"
+import { useParams } from "next/navigation"
 
 const Header = () => {
 	const currentTaskRound = useAppSelector(selectCurrentTaskRound)
+	const params = useParams()
+	const isExistStudent = params.studentId !== "unknown"
+
 	if (!currentTaskRound) return null
+
 	return (
 		<div>
 			<div className="mb-2 flex items-start justify-between">
@@ -15,7 +20,7 @@ const Header = () => {
 					icon={<IoCloseCircleSharp size={40} />}
 					color="error"
 					size="md"
-					href="."
+					href={isExistStudent ? "." : "/"}
 					round
 				/>
 				<BoardResult />

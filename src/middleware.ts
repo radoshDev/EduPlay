@@ -21,5 +21,7 @@ export default withAuth(
 )
 
 export const config = {
-	matcher: ["/((?!register|api|login|manifest|icon).{1,})"],
+	matcher: [
+		"/((?!register|api|login|manifest|icon|education/unknown/coins).{1,})",
+	],
 }
