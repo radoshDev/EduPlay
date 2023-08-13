@@ -10,7 +10,7 @@ export const addTaskSubcategoryHandler = adminProcedure
 	.input(TaskSubcategoryInputSchema)
 	.mutation(async ({ input }) => {
 		try {
-			const { title, imageFile, imageUrl, parentSlug } = input
+			const { title, imageFile, imageUrl, parentSlug, ...data } = input
 			const slug = slugify(title.toLowerCase())
 			const existSubcategory = await prisma.taskSubCategory.findUnique({
 				where: { slug },
@@ -29,7 +29,7 @@ export const addTaskSubcategoryHandler = adminProcedure
 			if (imageUrl) media = imageUrl
 
 			await prisma.taskSubCategory.create({
-				data: { imageUrl: media, slug, title, parentSlug },
+				data: { imageUrl: media, slug, title, parentSlug, ...data },
 			})
 			return { message: `Task subcategory ${title} have been created!` }
 		} catch (error) {

@@ -52,6 +52,7 @@ model TaskSubCategory {
   title          String
   imageUrl       String
   slug           String       @unique
+  difficulty     Int          @default(2)
   parentCategory TaskCategory @relation(fields: [parentSlug], references: [slug])
   parentSlug     String
   tasks          Task[]

@@ -1,10 +1,11 @@
 import { z } from "zod"
+import { DifficultySchema } from "./RootSchema"
 
 export const StudentSchema = z.object({
 	id: z.string().optional(),
 	name: z.string().nonempty("Name is required"),
 	avatar: z.string(),
-	difficulty: z.number().min(0).max(5),
+	difficulty: DifficultySchema,
 	roundLength: z.number().min(3).max(20),
 })
 

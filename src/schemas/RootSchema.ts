@@ -14,7 +14,7 @@ export const ImageFileSchema = z
 	})
 	.optional()
 
-export type ImageFile = z.infer<typeof ImageFileSchema>
+export const DifficultySchema = z.number().min(0).max(5)
 
 export function validateImage(values: any, ctx: RefinementCtx) {
 	if (!values.imageUrl && values.imageFile?.length === 0) {
@@ -30,3 +30,5 @@ export function validateImage(values: any, ctx: RefinementCtx) {
 		})
 	}
 }
+
+export type ImageFile = z.infer<typeof ImageFileSchema>

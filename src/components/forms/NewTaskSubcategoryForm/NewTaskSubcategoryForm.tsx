@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import toast, { Toaster } from "react-hot-toast"
-import { Form, InputField, InputImageField } from "@/components/ui"
+import { Form, InputField, InputImageField, SelectField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
 import toBase64 from "@/helpers/toBase64"
 import { ImageFile } from "@/schemas/RootSchema"
@@ -11,6 +11,7 @@ import {
 	TaskSubcategoryFormSchema,
 } from "@/schemas/TaskSchema"
 import { api } from "@/utils/api"
+import { DIFFICULTY_TYPES } from "@/constants"
 
 type Props = {
 	parentSlug: string
@@ -32,9 +33,10 @@ const NewTaskSubcategoryForm = ({ parentSlug }: Props) => {
 		if (file) {
 			imageFile = { base64: await toBase64(file), name: file.name }
 		}
+
 		toast.promise(mutateAsync({ ...data, parentSlug, imageFile }), {
 			loading: "Creating...",
-			error: err => err.message || "Failed",
+			error: "Failed😢",
 			success: data => data?.message || "Subcategory created!",
 		})
 	})
@@ -61,7 +63,19 @@ const NewTaskSubcategoryForm = ({ parentSlug }: Props) => {
 						error={errors.imageUrl?.message}
 					/>
 				</div>
-				<Button isLoading={isLoading} variant="success" type="submit">
+				<SelectField
+					label="Difficulty"
+					options={DIFFICULTY_TYPES.map((label, i) => ({
+						label,
+						value: i,
+					}))}
+					{...register("difficulty", { valueAsNumber: true })}
+				/>
+				<Button
+					className="mt-6"
+					isLoading={isLoading}
+					variant="success"
+					type="submit">
 					Create
 				</Button>
 			</Form>
