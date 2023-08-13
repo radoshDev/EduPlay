@@ -28,23 +28,14 @@ model Creature {
   categorySlug String
 }
 
-enum Difficulty {
-  beginner
-  easy
-  normal
-  hard
-  expert
-  ultra
-}
-
 model Student {
-  id               String     @id @default(cuid())
+  id               String @id @default(cuid())
   name             String
   avatar           String
-  creatureCategory String     @default("all")
-  difficulty       Difficulty @default(normal)
-  roundLength      Int        @default(5)
-  user             User       @relation(fields: [userId], references: [id])
+  creatureCategory String @default("all")
+  difficulty       Int    @default(2)
+  roundLength      Int    @default(5)
+  user             User   @relation(fields: [userId], references: [id])
   userId           String
 }
 

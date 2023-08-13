@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import toast, { Toaster } from "react-hot-toast"
 import { api } from "@/utils/api"
-import { StudentInput, StudentSchema } from "@/schemas/StudentSchema"
+import { StudentSchema, StudentInput } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
 import { InputField, SelectField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
@@ -33,7 +33,7 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 		setValue,
 		formState: { errors },
 	} = useForm<StudentInput>({
-		defaultValues,
+		defaultValues: defaultValues,
 		resolver: zodResolver(StudentSchema),
 	})
 
@@ -42,11 +42,10 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 			//@ts-ignore
 			mutateAsync({
 				...data,
-				roundLength: +data.roundLength,
 				id: defaultValues?.id,
 			}),
 			{
-				error: err => err.message || "Failed:(",
+				error: "Failed:(",
 				loading: "Processing...",
 				success: "Success!",
 			}
@@ -72,13 +71,16 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 				</div>
 				<SelectField
 					label="Difficulty"
-					options={DIFFICULTY_TYPES}
-					{...register("difficulty")}
+					options={DIFFICULTY_TYPES.map((label, i) => ({
+						label,
+						value: i,
+					}))}
+					{...register("difficulty", { valueAsNumber: true })}
 				/>
 				<InputField
 					label="Round Length"
 					type="number"
-					{...register("roundLength")}
+					{...register("roundLength", { valueAsNumber: true })}
 					error={errors.roundLength?.message}
 				/>
 				<div className="text-center">

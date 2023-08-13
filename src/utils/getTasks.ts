@@ -1,12 +1,17 @@
 import { EARN_TYPES } from "@/constants"
 import { prisma } from "@/server/db"
 
-export const getTasks = async (type: string) => {
+type Props = {
+	type: string
+	difficulty?: number
+}
+
+export const getTasks = async ({ type, difficulty }: Props) => {
 	switch (type) {
 		case EARN_TYPES[0].type:
 		case EARN_TYPES[1].type:
 		case EARN_TYPES[2].type:
-			return prisma.task.findMany()
+			return prisma.task.findMany({ where: { subcategory: { title: {} } } })
 		case "math":
 			return prisma.task.findMany({
 				where: { subcategory: { parentSlug: "math" } },

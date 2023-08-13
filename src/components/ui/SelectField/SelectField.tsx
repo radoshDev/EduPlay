@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, forwardRef, Ref } from "react"
 
 type Props = {
 	label: string
-	options: string[]
+	options: { value: string | number; label: string }[]
 	error?: string
 } & ComponentPropsWithoutRef<"select">
 
@@ -14,9 +14,9 @@ const SelectField = (props: Props, ref: Ref<HTMLSelectElement>) => {
 				<span className="label-text">{label}</span>
 			</label>
 			<select className="select-bordered select" ref={ref} {...selectProps}>
-				{options.map(val => (
-					<option key={val} value={val}>
-						{val}
+				{options.map(({ label, value }) => (
+					<option key={value} value={value}>
+						{label}
 					</option>
 				))}
 			</select>

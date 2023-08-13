@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui"
 import { Student } from "@prisma/client"
 import StudentAvatar from "../StudentAvatar/StudentAvatar"
+import { DIFFICULTY_TYPES } from "@/constants"
 
 type Props = {
 	student: Student
@@ -17,7 +18,12 @@ const StudentInfo = ({ student }: Props) => {
 			/>
 			<div className="mt-2 font-bold">
 				Difficulty:{" "}
-				<Badge text={student.difficulty} color="primary" size="lg" outline />
+				<Badge
+					text={DIFFICULTY_TYPES[student.difficulty]}
+					color="primary"
+					size="lg"
+					outline
+				/>
 			</div>
 			<div className="mt-2 font-bold">
 				Round Length:{" "}
