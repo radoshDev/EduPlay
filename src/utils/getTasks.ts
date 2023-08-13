@@ -11,7 +11,9 @@ export const getTasks = async ({ type, difficulty }: Props) => {
 		case EARN_TYPES[0].type:
 		case EARN_TYPES[1].type:
 		case EARN_TYPES[2].type:
-			return prisma.task.findMany({ where: { subcategory: { title: {} } } })
+			return prisma.task.findMany({
+				where: { subcategory: { difficulty: { lte: difficulty } } },
+			})
 		case "math":
 			return prisma.task.findMany({
 				where: { subcategory: { parentSlug: "math" } },

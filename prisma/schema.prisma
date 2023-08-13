@@ -43,6 +43,7 @@ model TaskCategory {
   id            String            @id @default(cuid())
   title         String
   imageUrl      String
+  position      Int               @default(0)
   slug          String            @unique
   subCategories TaskSubCategory[]
 }
@@ -53,6 +54,7 @@ model TaskSubCategory {
   imageUrl       String
   slug           String       @unique
   difficulty     Int          @default(2)
+  position       Int          @default(0)
   parentCategory TaskCategory @relation(fields: [parentSlug], references: [slug])
   parentSlug     String
   tasks          Task[]

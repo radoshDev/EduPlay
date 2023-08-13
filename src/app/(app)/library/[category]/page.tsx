@@ -20,6 +20,7 @@ const TaskCategoryPage = async ({
 	if (!taskCategory) notFound()
 	const taskSubcategories = await prisma.taskSubCategory.findMany({
 		where: { parentSlug: categorySlug },
+		orderBy: { position: "asc" },
 	})
 
 	return (
