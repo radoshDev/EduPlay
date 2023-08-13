@@ -7,9 +7,10 @@ import toast, { Toaster } from "react-hot-toast"
 import { api } from "@/utils/api"
 import { StudentInput, StudentSchema } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
-import { InputField } from "@/components/ui"
+import { InputField, SelectField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
 import { AtLeast } from "@/types"
+import { DIFFICULTY_TYPES } from "@/constants"
 
 type Props = {
 	creaturesImage: string[]
@@ -37,12 +38,19 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 	})
 
 	const onSubmit = handleSubmit(data => {
-		// @ts-ignore
-		toast.promise(mutateAsync({ ...data, id: defaultValues?.id }), {
-			error: err => err.message || "Failed:(",
-			loading: "Processing...",
-			success: "Success!",
-		})
+		toast.promise(
+			//@ts-ignore
+			mutateAsync({
+				...data,
+				roundLength: +data.roundLength,
+				id: defaultValues?.id,
+			}),
+			{
+				error: err => err.message || "Failed:(",
+				loading: "Processing...",
+				success: "Success!",
+			}
+		)
 	})
 	return (
 		<>
@@ -62,8 +70,20 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 						setImage={img => setValue("avatar", img)}
 					/>
 				</div>
+				<SelectField
+					label="Difficulty"
+					options={DIFFICULTY_TYPES}
+					{...register("difficulty")}
+				/>
+				<InputField
+					label="Round Length"
+					type="number"
+					{...register("roundLength")}
+					error={errors.roundLength?.message}
+				/>
 				<div className="text-center">
 					<Button
+						className="mt-6"
 						isLoading={isLoading}
 						variant="success"
 						type="submit"

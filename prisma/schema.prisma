@@ -42,7 +42,8 @@ model Student {
   name             String
   avatar           String
   creatureCategory String     @default("all")
-  level            Difficulty @default(normal)
+  difficulty       Difficulty @default(normal)
+  roundLength      Int        @default(5)
   user             User       @relation(fields: [userId], references: [id])
   userId           String
 }

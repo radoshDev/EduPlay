@@ -29,11 +29,7 @@ const UpdateStudentPage = async ({ params }: Props) => {
 				<StudentForm
 					creaturesImage={creaturesImage}
 					action="updateStudent"
-					defaultValues={{
-						avatar: student.avatar,
-						id: student.id,
-						name: student.name,
-					}}
+					defaultValues={student}
 				/>
 			</Suspense>
 		</PageLayout>

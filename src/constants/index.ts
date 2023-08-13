@@ -25,3 +25,12 @@ export const EARN_TYPES = [
 			"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
 	},
 ]
+
+export const DIFFICULTY_TYPES = [
+	"beginner",
+	"easy",
+	"normal",
+	"hard",
+	"expert",
+	"ultra",
+]

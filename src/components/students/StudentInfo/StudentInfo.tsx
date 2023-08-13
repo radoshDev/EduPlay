@@ -17,7 +17,16 @@ const StudentInfo = ({ student }: Props) => {
 			/>
 			<div className="mt-2 font-bold">
 				Difficulty:{" "}
-				<Badge text={student.level} color="primary" size="lg" outline />
+				<Badge text={student.difficulty} color="primary" size="lg" outline />
+			</div>
+			<div className="mt-2 font-bold">
+				Round Length:{" "}
+				<Badge
+					text={`${student.roundLength}`}
+					color="primary"
+					size="lg"
+					outline
+				/>
 			</div>
 		</div>
 	)

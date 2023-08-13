@@ -15,7 +15,7 @@ const Avatar: FC<Props> = ({ alt, imageSrc, size, variant }) => {
 			<div
 				className={`w-[${size}px] rounded-full ring ring-${variant} ring-offset-2 ring-offset-base-100`}>
 				<Image
-					className="!object-contain"
+					className="!object-cover"
 					src={imageSrc}
 					alt={alt}
 					width={size}

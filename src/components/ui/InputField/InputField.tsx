@@ -8,6 +8,7 @@ type Props = {
 
 const InputField = (props: Props, ref: Ref<HTMLInputElement>) => {
 	const { label, error, ...inputProps } = props
+
 	return (
 		<div className="form-control mb-4 w-full">
 			<label className="label">
