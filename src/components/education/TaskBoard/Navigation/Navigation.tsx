@@ -4,10 +4,14 @@ import { BsDatabaseFillAdd } from "react-icons/bs"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { nextRound, updateTaskIndex } from "@/redux/features/task/taskSlice"
 import { selectCurrentTaskRound } from "@/redux/features/task/selector"
+import { api } from "@/utils/api"
 
 const Navigation = () => {
+	const { mutateAsync: saveProgressToDB } =
+		api.student.saveProgress.useMutation({ retry: 2 })
 	const dispatch = useAppDispatch()
 	const currentTaskRound = useAppSelector(selectCurrentTaskRound)
+	const studentId = useAppSelector(s => s.task.studentId)
 
 	if (!currentTaskRound) return null
 
@@ -23,6 +27,9 @@ const Navigation = () => {
 
 	function handleNewRound() {
 		dispatch(nextRound())
+		if (studentId && studentId !== "unknown") {
+			saveProgressToDB({ studentId })
+		}
 	}
 	return (
 		<div className="flex justify-center gap-10">

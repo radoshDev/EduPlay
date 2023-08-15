@@ -9,4 +9,8 @@ export const StudentSchema = z.object({
 	roundLength: z.number().min(3).max(20),
 })
 
+export const StudentProgressInputSchema = z.object({
+	studentId: z.string(),
+})
+
 export type StudentInput = z.infer<typeof StudentSchema>

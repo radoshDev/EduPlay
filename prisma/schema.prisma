@@ -39,6 +39,14 @@ model Student {
   userId           String
 }
 
+model DailyProgress {
+  studentId String
+  date      String
+  value     Int
+
+  @@unique([studentId, date])
+}
+
 model TaskCategory {
   id            String            @id @default(cuid())
   title         String
