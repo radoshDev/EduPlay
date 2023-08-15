@@ -9,7 +9,7 @@ const Task = () => {
 
 	return (
 		<div
-			className="text-center"
+			className="text-center leading-[1.1]"
 			style={{ fontSize: calcFontSize(currentTask.value.length) }}>
 			{currentTask.value}
 		</div>

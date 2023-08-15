@@ -8,6 +8,8 @@ const TaskHint = () => {
 
 	if (!currentTask) return null
 
+	if (currentTask.result) return null
+
 	const word = currentTask.value
 
 	return (

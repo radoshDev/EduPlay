@@ -1,3 +1,3 @@
-- save student progress in db by each day: {"08/08/2023": 5}
+- change padding in TaskBoard for mobile
 - add tracking statistic with graph
 - add beautiful pages preloader

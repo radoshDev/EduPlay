@@ -25,7 +25,7 @@ const TaskBoard = (props: Props) => {
 	}, [dispatch, props])
 
 	return (
-		<div className="mx-auto flex h-screen max-h-screen max-w-3xl flex-col p-6">
+		<div className="mx-auto flex h-screen max-h-screen max-w-3xl flex-col px-2 py-4">
 			<Header />
 			<Content />
 			<Navigation />

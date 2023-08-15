@@ -15,12 +15,10 @@ export const getTasks = async ({ type, difficulty }: Props) => {
 				where: { subcategory: { difficulty: { lte: difficulty } } },
 			})
 		case "math":
-			return prisma.task.findMany({
-				where: { subcategory: { parentSlug: "math" } },
-			})
 		case "reading":
+		case "letters":
 			return prisma.task.findMany({
-				where: { subcategory: { parentSlug: "reading" } },
+				where: { subcategory: { parentSlug: type } },
 			})
 		default:
 			return prisma.task.findMany({
