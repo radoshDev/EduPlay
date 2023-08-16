@@ -9,6 +9,7 @@ import { Suspense } from "react"
 export const metadata = {
 	title: "Edit student",
 }
+export const revalidate = 0
 
 type Props = PageProps<"studentId">
 

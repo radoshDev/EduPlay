@@ -6,6 +6,8 @@ import { ButtonEdit } from "@/components/ui/buttons"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 
+export const revalidate = 0
+
 type Props = PageProps<"studentId">
 
 const StudentPage = async ({ params }: Props) => {
