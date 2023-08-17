@@ -48,7 +48,7 @@ const RegisterForm: FC = () => {
 				/>
 				<InputField
 					label="Email"
-					type="text"
+					type="email"
 					autoComplete="new-password"
 					{...register("email")}
 					error={errors.email?.message}

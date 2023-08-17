@@ -9,22 +9,28 @@ import { StudentSchema, StudentInput } from "@/schemas/StudentSchema"
 import ImageSelector from "./ImageSelector/ImageSelector"
 import { InputField, SelectField } from "@/components/ui"
 import { Button } from "@/components/ui/buttons"
-import { AtLeast } from "@/types"
 import { DIFFICULTY_TYPES } from "@/constants"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import {
+	addStudent,
+	updateStudent,
+} from "@/redux/features/student/studentSlice"
 
 type Props = {
 	creaturesImage: string[]
-	action: Extract<keyof typeof api.student, "addStudent" | "updateStudent">
-	defaultValues: AtLeast<StudentInput, "avatar">
+	action: Extract<keyof typeof api.student, "updateStudent" | "addStudent">
 }
 
-const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
+const StudentForm = ({ creaturesImage, action }: Props) => {
+	const isAdding = action === "addStudent"
 	const router = useRouter()
+	const dispatch = useAppDispatch()
+	const student = useAppSelector(s => s.student.currentStudent)
 	const { mutateAsync, isLoading } = api.student[action].useMutation({
-		onSuccess() {
-			router.push(
-				action === "addStudent" ? "/students" : `/students/${defaultValues.id}`
-			)
+		onSuccess(data) {
+			if (!data) return
+			dispatch(isAdding ? addStudent(data) : updateStudent(data))
+			router.push(isAdding ? "/students" : `/students/${student?.id}`)
 		},
 	})
 	const {
@@ -33,16 +39,15 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 		setValue,
 		formState: { errors },
 	} = useForm<StudentInput>({
-		defaultValues: defaultValues,
+		defaultValues: (!isAdding && student) || undefined,
 		resolver: zodResolver(StudentSchema),
 	})
 
 	const onSubmit = handleSubmit(data => {
 		toast.promise(
-			//@ts-ignore
 			mutateAsync({
 				...data,
-				id: defaultValues?.id,
+				id: student?.id,
 			}),
 			{
 				error: "Failed:(",
@@ -64,7 +69,7 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 				<div className="mb-4">
 					<div className="text-sm">Avatar</div>
 					<ImageSelector
-						imageDefault={defaultValues.avatar}
+						imageDefault={student?.avatar || creaturesImage[0]}
 						imageUrls={creaturesImage}
 						setImage={img => setValue("avatar", img)}
 					/>
@@ -90,7 +95,7 @@ const StudentForm = ({ creaturesImage, action, defaultValues }: Props) => {
 						variant="success"
 						type="submit"
 						size="sm">
-						{action === "addStudent" ? "Add" : "Update"}
+						{isAdding ? "Add" : "Update"}
 					</Button>
 				</div>
 			</form>

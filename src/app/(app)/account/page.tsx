@@ -8,7 +8,14 @@ const AccountPage = async () => {
 
 	return (
 		<PageLayout
-			title={<PageTitle title="Account" backButton href="/students" />}>
+			title={
+				<PageTitle
+					title="Акаунт"
+					backButton
+					href="/students"
+					afterAction={<ButtonLogout />}
+				/>
+			}>
 			<div className="flex justify-center">
 				<div className="flex flex-col gap-3">
 					<div>
@@ -16,12 +23,11 @@ const AccountPage = async () => {
 						<div className="badge badge-accent ml-2">{session?.user.role}</div>
 					</div>
 					<Button size="sm" variant="neutral" className="" href="/creatures">
-						Creatures
+						Істоти
 					</Button>
 					<Button size="sm" variant="warning" className="" href="/library">
-						Library
+						Бібліотека
 					</Button>
-					<ButtonLogout />
 				</div>
 			</div>
 		</PageLayout>

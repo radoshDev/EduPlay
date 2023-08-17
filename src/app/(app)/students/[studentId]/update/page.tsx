@@ -1,15 +1,14 @@
 import { StudentForm } from "@/components/forms"
 import PageLayout from "@/components/layouts/PageLayout"
+import { UpdateStudentContainer } from "@/components/students"
 import { PageTitle } from "@/components/ui"
 import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"
-import { Suspense } from "react"
 
 export const metadata = {
 	title: "Edit student",
 }
-export const revalidate = 0
 
 type Props = PageProps<"studentId">
 
@@ -26,13 +25,9 @@ const UpdateStudentPage = async ({ params }: Props) => {
 	const creaturesImage = creatures.map(creature => creature.mainImage)
 	return (
 		<PageLayout title={<PageTitle title="Edit student" backButton href="." />}>
-			<Suspense fallback={<div>Student Form loading...</div>}>
-				<StudentForm
-					creaturesImage={creaturesImage}
-					action="updateStudent"
-					defaultValues={student}
-				/>
-			</Suspense>
+			<UpdateStudentContainer student={student}>
+				<StudentForm creaturesImage={creaturesImage} action="updateStudent" />
+			</UpdateStudentContainer>
 		</PageLayout>
 	)
 }

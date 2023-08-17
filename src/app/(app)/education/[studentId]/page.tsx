@@ -3,8 +3,7 @@ import { PageTitle } from "@/components/ui"
 import { getOneStudentServer } from "@/server/api/handlers/student/getOneStudentHandler"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"
-import { TaskList } from "@/components/education"
-import { StudentAvatar } from "@/components/students"
+import { NavAvatar, TaskList } from "@/components/education"
 
 const StudentPage = async ({ params }: PageProps<"studentId">) => {
 	const student = await getOneStudentServer(params.studentId)
@@ -16,14 +15,7 @@ const StudentPage = async ({ params }: PageProps<"studentId">) => {
 					title="EduPlay"
 					backButton
 					href="/students"
-					afterAction={
-						<StudentAvatar
-							title={student.name}
-							imageSrc={student.avatar}
-							size="xs"
-							href={`/students/${params.studentId}`}
-						/>
-					}
+					afterAction={<NavAvatar student={student} />}
 				/>
 			}>
 			<TaskList studentId={student.id} />

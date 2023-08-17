@@ -1,3 +1,4 @@
+- fix progress to save complete tasks depend on roundLength
 - add tracking statistic with graph
 - fix cache bug after updating
 - add beautiful pages preloader

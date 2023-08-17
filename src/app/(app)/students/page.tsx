@@ -3,6 +3,7 @@ import { PageTitle } from "@/components/ui"
 import { ButtonAdd, ButtonIcon } from "@/components/ui/buttons"
 import PageLayout from "@/components/layouts/PageLayout"
 import StudentList from "@/components/students/StudentList"
+import { getStudentsServer } from "@/server/api/handlers/student/getStudentsHandler"
 
 export const metadata = {
 	title: "Students | EduPlay",
@@ -10,9 +11,8 @@ export const metadata = {
 		"EduPlay: Learn & Earn Coins makes education exciting with fun-filled lessons on alphabets, words, and math. Kids enjoy the engaging, interactive tasks and earn coins for their achievements, turning learning into an adventurous game!",
 }
 
-export const revalidate = 0
-
-const StudentsPage = () => {
+const StudentsPage = async () => {
+	const students = await getStudentsServer()
 	const accountSettings = (
 		<ButtonIcon
 			href="/account"
@@ -25,7 +25,7 @@ const StudentsPage = () => {
 		<PageLayout
 			title={<PageTitle title="Students" afterAction={accountSettings} />}>
 			<div className="flex w-full max-w-md flex-col">
-				<StudentList />
+				<StudentList students={students} />
 				<div className="text-center">
 					<ButtonAdd href="/students/add" />
 				</div>

@@ -19,11 +19,7 @@ const AddStudentPage = async () => {
 		<PageLayout
 			title={<PageTitle title="New student" backButton href="/students" />}>
 			<Suspense fallback={<div>Student Form loading...</div>}>
-				<StudentForm
-					creaturesImage={creaturesImage}
-					action="addStudent"
-					defaultValues={{ avatar: creaturesImage[0] }}
-				/>
+				<StudentForm creaturesImage={creaturesImage} action="addStudent" />
 			</Suspense>
 		</PageLayout>
 	)

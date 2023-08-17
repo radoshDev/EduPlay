@@ -49,7 +49,7 @@ const LoginForm: FC = () => {
 			<form onSubmit={onSubmit}>
 				<InputField
 					label="Email"
-					type="text"
+					type="email"
 					autoComplete="email"
 					{...register("email")}
 					error={errors.email?.message}

@@ -1,7 +1,7 @@
-import { RootState } from "@/redux/store"
+import { TaskState } from "@/types/Task"
 
-export function getCurrentTask(state: RootState["task"]) {
+export function getCurrentTask(state: TaskState) {
 	const { studentId, taskType } = state
 	if (!studentId || !taskType) return
-	return state.studentProgress[studentId][taskType]
+	return state.studentProgress[studentId]?.[taskType]
 }

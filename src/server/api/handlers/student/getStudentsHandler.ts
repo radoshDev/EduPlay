@@ -10,6 +10,7 @@ export const getStudentsHandler = protectedProcedure.query(({ ctx }) => {
 
 export const getStudentsServer = async () => {
 	const session = await getServerAuthSession()
-	const userId = session!.user.id
+	const userId = session?.user.id
+	if (!userId) throw new Error("UNAUTHORIZED")
 	return prisma.student.findMany({ where: { userId } })
 }
