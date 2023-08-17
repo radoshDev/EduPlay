@@ -8,19 +8,19 @@ const saveProgressHandler = protectedProcedure
 	.input(StudentProgressInputSchema)
 	.mutation(async ({ input }) => {
 		try {
-			const { studentId } = input
+			const { studentId, roundLength } = input
 			const today = dayjs().format("DD-MM-YYYY")
 			const existProgress = await prisma.dailyProgress.findUnique({
 				where: { studentId_date: { date: today, studentId } },
 			})
 			if (!existProgress) {
 				return prisma.dailyProgress.create({
-					data: { date: today, studentId, value: 1 },
+					data: { date: today, studentId, value: roundLength },
 				})
 			}
 			return prisma.dailyProgress.update({
 				where: { studentId_date: { date: today, studentId } },
-				data: { value: existProgress.value + 1 },
+				data: { value: existProgress.value + roundLength },
 			})
 		} catch (error) {
 			errorHandler(error)

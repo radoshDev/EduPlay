@@ -28,7 +28,10 @@ const Navigation = () => {
 	function handleNewRound() {
 		dispatch(nextRound())
 		if (studentId && studentId !== "unknown") {
-			saveProgressToDB({ studentId })
+			saveProgressToDB({
+				studentId,
+				roundLength: currentTaskRound!.roundLength,
+			})
 		}
 	}
 	return (

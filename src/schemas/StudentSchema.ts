@@ -11,6 +11,7 @@ export const StudentSchema = z.object({
 
 export const StudentProgressInputSchema = z.object({
 	studentId: z.string(),
+	roundLength: z.number(),
 })
 
 export type StudentInput = z.infer<typeof StudentSchema>
