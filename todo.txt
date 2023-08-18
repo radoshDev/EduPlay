@@ -1,3 +1,4 @@
+- fix updating roundLength in tasks (use from redux)
+- fix cache bug after adding creatures
 - add tracking statistic with graph
-- fix cache bug after updating
 - add beautiful pages preloader
