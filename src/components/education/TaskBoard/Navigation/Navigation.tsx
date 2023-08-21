@@ -5,8 +5,11 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { nextRound, updateTaskIndex } from "@/redux/features/task/taskSlice"
 import { selectCurrentTaskRound } from "@/redux/features/task/selector"
 import { api } from "@/utils/api"
+import { useRef } from "react"
 
 const Navigation = () => {
+	const nextRoundAudioRef = useRef<HTMLAudioElement | null>(null)
+	const earnedCoinAudioRef = useRef<HTMLAudioElement | null>(null)
 	const { mutateAsync: saveProgressToDB } =
 		api.student.saveProgress.useMutation({ retry: 2 })
 	const dispatch = useAppDispatch()
@@ -21,8 +24,10 @@ const Navigation = () => {
 		dispatch(updateTaskIndex("decrement"))
 	}
 
-	function handleNext() {
+	async function handleNext() {
 		dispatch(updateTaskIndex("increment"))
+
+		handlePlaySound()
 	}
 
 	function handleNewRound() {
@@ -34,6 +39,25 @@ const Navigation = () => {
 			})
 		}
 	}
+
+	function handlePlaySound() {
+		if (!currentTaskRound) return
+
+		const isLastWord =
+			currentTaskRound.index === currentTaskRound.roundLength - 1
+		const sound = isLastWord
+			? earnedCoinAudioRef.current
+			: nextRoundAudioRef.current
+
+		if (!sound) return
+
+		if (!sound.paused) {
+			sound.pause()
+			sound.currentTime = 0
+		}
+		sound.play()
+	}
+
 	return (
 		<div className="flex justify-center gap-10">
 			<Button disabled={currentTaskRound.index === 0} onClick={handlePrev}>
@@ -51,6 +75,10 @@ const Navigation = () => {
 					<BsDatabaseFillAdd size={30} />
 				</Button>
 			)}
+			<div className="hidden">
+				<audio ref={nextRoundAudioRef} src="/success-sound.mp3" />
+				<audio ref={earnedCoinAudioRef} src="/coin-earned.mp3" />
+			</div>
 		</div>
 	)
 }
