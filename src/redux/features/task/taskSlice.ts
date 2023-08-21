@@ -10,7 +10,7 @@ const initialState: TaskState = {
 	tasks: [],
 	creatures: [],
 	taskType: null,
-	studentId: null as string | null,
+	studentId: "unknown",
 	studentProgress: {},
 }
 

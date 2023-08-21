@@ -19,9 +19,8 @@ const EducationTypePage = async ({ params }: Props) => {
 		<TaskBoard
 			tasks={tasks}
 			creatures={creatures}
-			roundLength={student?.roundLength || 5}
 			taskType={params.type}
-			studentId={params.studentId}
+			student={student}
 		/>
 	)
 }
