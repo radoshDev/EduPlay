@@ -1,20 +1,19 @@
 import { TaskBoard } from "@/components/education"
-import { prisma } from "@/server/db"
+import { serverApi } from "@/server/api/api"
 import { PageProps } from "@/types"
-import { getCreatures } from "@/utils/getCreatures"
-import { getTasks } from "@/utils/getTasks"
 
 type Props = PageProps<"type" | "studentId">
 
 const EducationTypePage = async ({ params }: Props) => {
-	const student = await prisma.student.findUnique({
-		where: { id: params.studentId },
+	const student = await serverApi.student.getOneStudent({
+		id: params.studentId,
 	})
-	const tasks = await getTasks({
-		type: params.type,
+	const tasks = await serverApi.library.getTasks({
 		difficulty: student?.difficulty,
+		type: params.type,
 	})
-	const creatures = await getCreatures(params.studentId)
+	const creatures = await serverApi.creature.getCreatures()
+
 	return (
 		<TaskBoard
 			tasks={tasks}

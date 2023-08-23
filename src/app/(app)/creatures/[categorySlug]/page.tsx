@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation"
-import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
 import { PageTitle } from "@/components/ui"
 import CreaturesList from "@/components/creatures/CreatureList"
 import PageLayout from "@/components/layouts/PageLayout"
 import { getServerAuthSession } from "@/server/auth"
 import { Button, ButtonAdd, ButtonEducation } from "@/components/ui/buttons"
+import { serverApi } from "@/server/api/api"
 
 const CreatureCategoryPage = async ({ params }: PageProps<"categorySlug">) => {
-	const creaturesCategory = await prisma.creatureCategory.findUnique({
-		where: { slug: params.categorySlug },
+	const creaturesCategory = await serverApi.creature.getOneCategory({
+		slug: params.categorySlug,
 	})
 	if (!creaturesCategory) notFound()
 

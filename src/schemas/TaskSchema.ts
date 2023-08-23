@@ -37,6 +37,11 @@ export const TaskUpdateSchema = TaskSchema.extend({
 	id: z.string().optional(),
 })
 
+export const TasksGetSchema = z.object({
+	difficulty: DifficultySchema.optional(),
+	type: z.string(),
+})
+
 export type TaskCategoryForm = z.infer<typeof TaskCategoryFormSchema>
 export type TaskSubcategoryForm = z.infer<typeof TaskSubcategoryFormSchema>
 export type TaskForm = z.infer<typeof TaskSchema>

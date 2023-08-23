@@ -20,6 +20,8 @@ export const CreatureGetSchema = z.object({
 	id: z.string(),
 })
 
+export const CreatureCategoryGetSchema = z.object({ slug: z.string() })
+
 const CreatureSchema = z.object({
 	name: z.string().min(2),
 	id: z.string().optional(),

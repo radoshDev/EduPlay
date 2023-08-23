@@ -1,9 +1,9 @@
 import { BsPlusCircleFill } from "react-icons/bs"
 import PageLayout from "@/components/layouts/PageLayout"
 import { getServerAuthSession } from "@/server/auth"
-import { prisma } from "@/server/db"
 import { CategoryList, PageTitle } from "@/components/ui"
 import { ButtonEducation, ButtonIcon } from "@/components/ui/buttons"
+import { serverApi } from "@/server/api/api"
 
 export const metadata = {
 	title: "Creatures",
@@ -11,9 +11,7 @@ export const metadata = {
 
 const CreaturesPage = async () => {
 	const session = await getServerAuthSession()
-	const creatureCategories = await prisma.creatureCategory.findMany({
-		orderBy: { slug: "asc" },
-	})
+	const creatureCategories = await serverApi.creature.getCategories()
 	const isAdmin = session?.user.role === "admin"
 
 	return (

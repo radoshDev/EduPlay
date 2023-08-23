@@ -1,13 +1,17 @@
 import PageLayout from "@/components/layouts/PageLayout"
 import { PageTitle } from "@/components/ui"
-import { getOneStudentServer } from "@/server/api/handlers/student/getOneStudentHandler"
 import { PageProps } from "@/types"
 import { notFound } from "next/navigation"
 import { NavAvatar, TaskList } from "@/components/education"
+import { serverApi } from "@/server/api/api"
 
 const StudentPage = async ({ params }: PageProps<"studentId">) => {
-	const student = await getOneStudentServer(params.studentId)
+	const student = await serverApi.student.getOneStudent({
+		id: params.studentId,
+	})
+
 	if (!student) notFound()
+
 	return (
 		<PageLayout
 			title={

@@ -3,7 +3,8 @@ import { PageTitle } from "@/components/ui"
 import { ButtonAdd, ButtonIcon } from "@/components/ui/buttons"
 import PageLayout from "@/components/layouts/PageLayout"
 import StudentList from "@/components/students/StudentList"
-import { getStudentsServer } from "@/server/api/handlers/student/getStudentsHandler"
+import { getServerApi } from "@/server/api/api"
+import { getServerAuthSession } from "@/server/auth"
 
 export const metadata = {
 	title: "Students | EduPlay",
@@ -12,7 +13,8 @@ export const metadata = {
 }
 
 const StudentsPage = async () => {
-	const students = await getStudentsServer()
+	const session = await getServerAuthSession()
+	const students = await getServerApi(session).student.getStudents()
 	const accountSettings = (
 		<ButtonIcon
 			href="/account"

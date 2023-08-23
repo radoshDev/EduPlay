@@ -9,6 +9,8 @@ export const StudentSchema = z.object({
 	roundLength: z.number().min(3).max(20),
 })
 
+export const StudentInputSchema = z.object({ id: z.string() })
+
 export const StudentProgressInputSchema = z.object({
 	studentId: z.string(),
 	roundLength: z.number(),
