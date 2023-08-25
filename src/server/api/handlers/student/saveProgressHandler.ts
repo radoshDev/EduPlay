@@ -9,7 +9,7 @@ const saveProgressHandler = protectedProcedure
 	.mutation(async ({ input }) => {
 		try {
 			const { studentId, roundLength, action } = input
-			const today = format(new Date(), "dd-MM-YYYY")
+			const today = format(new Date(), "dd-MM-yyyy")
 			const existProgress = await prisma.dailyProgress.findUnique({
 				where: { studentId_date: { date: today, studentId } },
 			})
