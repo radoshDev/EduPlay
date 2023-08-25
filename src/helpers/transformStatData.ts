@@ -1,14 +1,11 @@
 import format from "date-fns/format"
 import parseDate from "date-fns/parse"
 import type { DailyProgress } from "@prisma/client"
-
-type Progress = {
-	date: string
-	value: number
-}
+import { Progress } from "@/types/Student"
+import { AtLeast } from "@/types"
 
 export const transformStatData = (
-	data: DailyProgress[],
+	data: AtLeast<DailyProgress, "date" | "value">[],
 	period: string
 ): Progress[] => {
 	return data.reduce<Progress[]>((result, entry) => {

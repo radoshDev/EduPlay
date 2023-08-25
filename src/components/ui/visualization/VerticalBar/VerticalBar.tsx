@@ -17,32 +17,27 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 type Props = {
 	title: string
 	labels: string[]
-	data: number[]
+	datasets: ChartData<"bar", number[]>["datasets"]
+	legend?: boolean
 }
 
-function VerticalBar({ data, labels, title }: Props) {
-	const chartData: ChartData<"bar", number[]> = {
-		labels,
-		datasets: [
-			{
-				data,
-				backgroundColor: "rgba(87, 13, 248, 0.5)",
-			},
-		],
-	}
+function VerticalBar({ datasets, labels, title, legend }: Props) {
 	return (
 		<Bar
 			options={{
 				responsive: true,
 				plugins: {
-					legend: { display: false },
+					legend: { display: legend || false },
 					title: {
 						display: true,
 						text: title,
 					},
 				},
 			}}
-			data={chartData}
+			data={{
+				labels,
+				datasets,
+			}}
 		/>
 	)
 }

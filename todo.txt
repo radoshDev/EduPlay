@@ -1,4 +1,2 @@
-- add sound after each task and at the end of round
 - fix cache bug after adding creatures
-- add tracking statistic with graph
 - add beautiful pages preloader

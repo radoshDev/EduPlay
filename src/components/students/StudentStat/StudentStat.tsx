@@ -1,10 +1,10 @@
 "use client"
 
-import { VerticalBar } from "@/components/ui/visualization"
 import type { DailyProgress } from "@prisma/client"
-import { SelectField } from "@/components/ui"
 import { useMemo, useState } from "react"
 import { transformStatData } from "@/helpers/transformStatData"
+import ProgressGraph from "../ProgressGraph/ProgressGraph"
+import { GRAPH_COLORS } from "@/constants"
 
 type Props = {
 	dailyProgress: DailyProgress[]
@@ -41,22 +41,17 @@ const StudentStat = ({ dailyProgress }: Props) => {
 
 	return (
 		<div className="StudentStat">
-			<div className="mb-4">
-				<SelectField
-					value={statPeriod}
-					onChange={e => handleStatPeriod(e.target.value)}
-					label="Період"
-					options={[
-						{ label: "Тиждень", value: "week" },
-						{ label: "Місяць", value: "month" },
-						{ label: "Рік", value: "year" },
-					]}
-				/>
-			</div>
-			<VerticalBar
-				title="Виконано завдань"
-				labels={progressLabels}
-				data={progressData}
+			<ProgressGraph
+				statPeriod={statPeriod}
+				datasets={[
+					{
+						label: "Dan",
+						data: progressData,
+						backgroundColor: GRAPH_COLORS[0],
+					},
+				]}
+				handleStatPeriod={handleStatPeriod}
+				progressLabels={progressLabels}
 			/>
 		</div>
 	)

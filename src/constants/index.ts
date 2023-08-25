@@ -34,3 +34,11 @@ export const DIFFICULTY_TYPES = [
 	"expert",
 	"ultra",
 ]
+
+export const GRAPH_COLORS = [
+	"rgba(87, 13, 248, 0.5)",
+	"rgba(29, 205, 188, 0.5)",
+	"rgba(29, 78, 216, 0.5)",
+	"rgba(234, 88, 12, 0.5)",
+	"rgba(240, 0, 184, 0.5)",
+]
