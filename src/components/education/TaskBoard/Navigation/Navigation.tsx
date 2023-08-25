@@ -6,6 +6,7 @@ import { nextRound, updateTaskIndex } from "@/redux/features/task/taskSlice"
 import { selectCurrentTaskRound } from "@/redux/features/task/selector"
 import { api } from "@/utils/api"
 import { useRef } from "react"
+import { StudentProgressInput } from "@/schemas/StudentSchema"
 
 const Navigation = () => {
 	const nextRoundAudioRef = useRef<HTMLAudioElement | null>(null)
@@ -19,25 +20,34 @@ const Navigation = () => {
 	if (!currentTaskRound) return null
 
 	const isRoundEnd = currentTaskRound.index === currentTaskRound.roundLength
+	const isBeforeRoundEnd =
+		currentTaskRound.index === currentTaskRound.roundLength - 1
 
 	function handlePrev() {
 		dispatch(updateTaskIndex("decrement"))
+
+		if (isRoundEnd) handleSaveProgress("subtract")
 	}
 
 	async function handleNext() {
 		dispatch(updateTaskIndex("increment"))
-
 		handlePlaySound()
+
+		if (isBeforeRoundEnd) handleSaveProgress("add")
 	}
 
 	function handleNewRound() {
 		dispatch(nextRound())
-		if (studentId && studentId !== "unknown") {
-			saveProgressToDB({
-				studentId,
-				roundLength: currentTaskRound!.roundLength,
-			})
-		}
+	}
+
+	function handleSaveProgress(action: StudentProgressInput["action"]) {
+		if (studentId === "unknown") return
+
+		saveProgressToDB({
+			studentId,
+			roundLength: currentTaskRound!.roundLength,
+			action,
+		})
 	}
 
 	function handlePlaySound() {

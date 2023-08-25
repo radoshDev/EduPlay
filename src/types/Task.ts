@@ -13,6 +13,6 @@ export type TaskState = {
 	tasks: Task[]
 	creatures: Creature[]
 	taskType: string | null
-	studentId: string | null
+	studentId: string
 	studentProgress: Partial<Record<string, Record<string, TaskRound>>>
 }

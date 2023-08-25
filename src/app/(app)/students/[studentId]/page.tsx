@@ -1,18 +1,27 @@
 import { notFound } from "next/navigation"
+
 import PageLayout from "@/components/layouts/PageLayout"
-import { StudentInfo } from "@/components/students"
+import { StudentInfo, StudentStat } from "@/components/students"
 import { PageTitle } from "@/components/ui"
 import { ButtonEdit } from "@/components/ui/buttons"
-import { prisma } from "@/server/db"
 import { PageProps } from "@/types"
+
+import { serverApi } from "@/server/api/api"
 
 type Props = PageProps<"studentId">
 
 const StudentPage = async ({ params }: Props) => {
 	const { studentId } = params
-	const student = await prisma.student.findUnique({ where: { id: studentId } })
+	const student = await serverApi.student.getOneStudent({
+		id: studentId,
+	})
 
 	if (!student) notFound()
+
+	const dailyProgress = await serverApi.student.getStudentProgress({
+		id: student.id,
+	})
+
 	return (
 		<PageLayout
 			title={
@@ -23,9 +32,9 @@ const StudentPage = async ({ params }: Props) => {
 					afterAction={<ButtonEdit href={`${studentId}/update`} />}
 				/>
 			}>
-			<div>
+			<div className="w-full">
 				<StudentInfo student={student} />
-				<div>Statistic</div>
+				<StudentStat dailyProgress={dailyProgress} />
 			</div>
 		</PageLayout>
 	)

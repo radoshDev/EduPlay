@@ -12,8 +12,11 @@ export const StudentSchema = z.object({
 export const StudentInputSchema = z.object({ id: z.string() })
 
 export const StudentProgressInputSchema = z.object({
+	action: z.ZodEnum.create(["add", "subtract"]),
 	studentId: z.string(),
 	roundLength: z.number(),
 })
+
+export type StudentProgressInput = z.infer<typeof StudentProgressInputSchema>
 
 export type StudentInput = z.infer<typeof StudentSchema>
